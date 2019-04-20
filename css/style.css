@@ -1,0 +1,278 @@
+@@font-face {
+  font-family: 'Open Sans', sans-serif;
+}
+
+*{
+  font-family: "Open sans";
+  padding: 0px;
+  margin: 0px;
+}
+
+a{
+  /* font-weight: bold; */
+  color: #68BB59;
+}
+
+a:hover{
+  color:  #4C9A2A;
+  text-decoration: none;
+}
+
+h1{
+  color: black;
+  text-align: center !important;
+  margin: 2px;
+  font-weight: bold;
+}
+
+h5{
+  font-size: 17px;
+  font-weight: bold;
+  line-height: 40px;
+}
+
+hr{
+  width: 20%;
+  margin: 20px auto;
+  background-color: #68BB59;
+  height: 2px;
+}
+
+footer{
+  background-color: #4C9A2A;
+}
+
+/* navbar */
+.navbar{
+  padding: 20px 7%;
+}
+
+.search{
+  border-radius: 0px;
+}
+
+.nav-item a{
+  margin: 0px 10px;
+  font-weight: bold;
+}
+
+input{
+  border: 1px #4C9A2A solid;
+}
+
+input:focus{
+  box-shadow: none !important;
+}
+
+/* container */
+.container-fluid{
+  padding: 50px 5%;
+}
+
+/* carousel */
+.carousel-item img{
+  height: 50%;
+  max-height: 700px;
+}
+
+.note{
+  background-color: rgba(0,0,0,0.7);
+  padding: 40px;
+  display: inline-flex;
+}
+
+.note button{
+  height: 60px;
+  width: 300px;
+  margin: 0px 20px;
+}
+
+.carousel{
+  margin-bottom: 50px;
+  min-height: 100%;
+}
+
+/* produk */
+.produk{
+  text-align: center;
+  margin-bottom: 50px;
+}
+
+.produk p{
+  padding: 0px 10px;
+}
+
+.gambar{
+  height: 700px;
+}
+
+.gambar img{
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  height: 100%;
+  padding: 10px;
+}
+
+.gambar:hover .overflow{
+ opacity: 1;
+}
+
+.overflow{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  opacity: 0;
+  transition: .2s ease;
+  background-color: rgba(0,0,0,0.7);
+  margin: 10px 25px 10px 25px;
+}
+
+.overflow h2{
+  text-align: center;
+  color: #68BB59;
+  margin: auto;
+  font-weight: bold;
+  padding: 250px 0px;
+  font-size: 60px;
+}
+
+/* footer */
+.footer{
+  padding: 50px 100px;
+  color: white;
+  margin: auto;
+}
+
+.footer div a img{
+  margin-right: 10px;
+  border-radius: 60px;
+}
+/* LOGIN */
+.login{
+  margin: 8% 30%;;
+  padding: 40px 0px;
+  text-align: center;
+  border-radius: 5px;
+  background-color: white;
+  box-shadow: 5px 5px rgba(0,0,0,0.1);
+}
+
+.forminside{
+  padding: 0px 50px;
+}
+
+.forminside input{
+  background-color: #CAD7B9;
+  border-radius: 20px;
+  height: 50px;
+}
+
+.forminside textarea{
+  background-color: #CAD7B9;
+  border-radius: 20px;
+}
+
+.forminside input:active, .forminside input:hover, .forminside input:focus,
+.forminside textarea:active, .forminside textarea:hover, .forminside textarea:focus{
+  background-color: #CAD7B9;
+  box-shadow: none;
+}
+
+.login h2{
+  text-align: left;
+  padding: 0px 0px 20px 50px;
+  font-size: 20px;
+}
+
+.login img{
+  margin: 30px 0px;
+}
+
+.login hr{
+  width: 100%;
+  background-color: rgba(0,0,0,0.1);
+  height: 0.1px;
+  padding: 0px;
+  margin: 0px;
+}
+
+.login button{
+  margin: 0px 10px;
+  width: 150px;
+  height: 50px;
+  border-radius: 20px;
+}
+
+
+/*cart*/
+.cart{
+  padding: 50px 20px;
+}
+
+.cart h1{
+  margin: 30px 0px;
+}
+
+.nama_produk span{
+  font-size: 25px;
+  margin: 0px 20px;
+  font-weight: bold;  
+}
+
+thead tr {
+  background-color: #4C9A2A;
+  color: white;
+}
+
+tr{
+  text-align: center;
+}
+
+.increment{
+  width: 30px;
+  height: 30px;
+  font-size: 10px;
+  text-align: center;
+  font-weight: bold;
+  margin: 0px 20px;
+}
+
+.form-check-input{
+  width: 35px;
+  height: 20px;
+
+}
+
+.checkout_container .row{
+  margin: 20px 40px;
+  padding: 30px 20px;
+  border: 2px solid #4C9A2A;
+  border-radius: 10px;
+}
+
+.checkout_container  h4{
+  margin: 20px 0px;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.checkout_container p{
+font-size: 15px;
+}
+
+.checkout_container h1{
+    margin: 30px 0px;
+}
+
+.pembayaran{
+  margin: 50px;
+}
+
+.pembayaran h1,.pembayaran ul{
+  margin: 40px 30px;
+  padding: 20px;
+}
