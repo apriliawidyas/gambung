@@ -1,5 +1,10 @@
   <?php
+  require "conn.php";
   require "partition/header.php";
+
+  $sql = "SELECT * FROM produk";
+	$result = $conn->query($sql);
+  $limit = 0;
   ?>
 
 <body>
@@ -62,12 +67,17 @@
     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
     aliquip ex ea commodo consequat. - <a href="#">LIHAT PRODUK</a></p>
 
-    <?php for ($i=0; $i < 3; $i++) { ?>
+    <?php  while(($row = $result->fetch_assoc()) && ($limit < 3)){
+									$name = $row['nama'];
+									$image = $row['gambar'];
+                  $price = $row['harga'];
+                  $limit++;
+		 ?>
 
   <div class="col-lg-4 col-xs-12">
     <div class="gambar" >
 
-      <img src="http://www.rivertea.com/blog/wp-content/uploads/2013/02/Tea_Leaves-e1360091865129.jpg" alt="produk">
+      <img src="images/<?php echo $image ?>" alt="produk">
       <div class="overflow">
           <h2>NAMA<br>PRODUK</h2>
       </div>

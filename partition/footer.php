@@ -7,9 +7,9 @@
     </div>
     <div class="col-lg-3 col-xs-12">
       <h5>Kontak</h5>
-      <p>Lorem ipsum dolor sit amet, Sukapura</p>
+      <p>Mekarsari Gambung, Pasir Jambu, Kab. Bandung</p>
       <p>Telephone : +62</p>
-      <p>email : erzaganteng@gmail.com</p>
+      <p>email : contact@gambung.com</p>
     </div>
     <div class="col-lg-3 col-xs-12">
       <h5>Menu</h5>

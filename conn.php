@@ -1,10 +1,14 @@
 <?php
-session_start();
+if(session_status() == PHP_SESSION_NONE){
+  session_start();
+}
+
+
 
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "db_teacowey";
+$dbname = "gambung";
 
 
 // Create connection

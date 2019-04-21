@@ -32,7 +32,7 @@ if (isset($_POST['btnSubmit'])) {
     }elseif ($role_id == 2) {
       header("location:penjual/index.php");
     }elseif ($role_id == 3) {
-      header("location:pembeli/index.php");
+      header("location:index.php");
 
     }
 
@@ -65,10 +65,11 @@ if (isset($_POST['btnDaftar'])) {
         </div>
         <p>Lupa Password ? <a href="#">Klik disini</a></p>
 
-        <button name="btnDaftar" class="btn btn-light">Daftar</button>
+        
 
         <button name="btnSubmit" type="submit" class="btn btn-primary">Login</button>
           </form>
+          <button name="btnDaftar" class="btn btn-light">Daftar</button>
       </div>
     </div>
 

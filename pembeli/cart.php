@@ -51,7 +51,7 @@ include '../partition/nav.php';
 								<td>Rp 20.000</td>
 								<td>
 									<button class="btn btn-danger increment">-</button>
-									5
+                                    0
 									<button class="btn btn-primary increment ">+</button>
 								</td>
 								<td>Rp 100.000</td>

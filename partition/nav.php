@@ -1,5 +1,15 @@
+<?php
+include 'conn.php';
+if(isset($_SESSION['status'])){
+  $check = $_SESSION['status'];
+}else{
+  $check = null;
+}
+?>
+
+
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-<a class="navbar-brand" href="#"><img src="image/gambung.png" alt="brand" height="80px"></a>
+<a class="navbar-brand" href="index.php"><img src="image/gambung.png" alt="brand" height="80px"></a>
 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
   <span class="navbar-toggler-icon"></span>
 </button>
@@ -10,25 +20,30 @@
       <a class="nav-link" href="#">TENTANG KAMI</a>
     </li>
     <li class="nav-item">
-      <a class="nav-link" href="#">PRODUK</a>
+      <a class="nav-link" href="list_produk.php">PRODUK</a>
     </li>
     <li class="nav-item">
       <a class="nav-link" href="#">CONTACT US</a>
     </li>
     <li class="nav-item">
 
-      <?php if (false): ?>
+      <?php if ($check != null): ?>
         <a class="nav-link" href="#"><img src="image/account.svg" alt="">
-        </i></a>
+        </a>
+        </li>
+        <li>
+        <a class="nav-link" href="logout.php">LOGOUT</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="cart.php"><img src="image/shopping.svg" alt="">
+          </i></a>
+        </li>
       <?php else: ?>
         <a href="login.php"><button type="button" name="button" class="btn btn-primary">Masuk / Daftar</button></a>
       <?php endif; ?>
 
     </li>
-    <li class="nav-item">
-      <a class="nav-link" href="#"><img src="image/shopping.svg" alt="">
-      </i></a>
-    </li>
+    
   </ul>
 </div>
 </nav>
