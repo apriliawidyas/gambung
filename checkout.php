@@ -96,6 +96,8 @@ include 'partition/nav.php';
 						<option>Transfer via Alfamart</option>
 						<option>Transfer via Bank</option>
 					</select>
+                    <h4>Voucher</h4>
+                    <input type="text" class="form-control">
 				</div>
 			</div>
 
