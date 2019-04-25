@@ -13,6 +13,7 @@ $limit = 0;
   <?php
   require "partition/nav.php";
   ?>
+  
 
 <div class="container-fluid">
 
@@ -25,21 +26,24 @@ $limit = 0;
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-    aliquip ex ea commodo consequat. - <a href="#">LIHAT PRODUK</a></p>
+    aliquip ex ea commodo consequat.
 
     <?php  while($row = $result->fetch_assoc()){
 									$name = $row['nama'];
 									$image = $row['gambar'];
 									$price = $row['harga'];
+
 		 ?>
 
   <div class="col-lg-4 col-xs-12">
     <div class="gambarlist" >
 
       <img src="images/<?php echo $image ?>" alt="produk">
-      <div class="overflow">
-          <h2><?php echo $name ?><br><?php echo $price ?></h2>
-      </div>
+        <a href="detailproduk.php?id=<?php echo $row['id']; ?>"  >
+          <div class="overflow list">
+              <h2><?php echo $name ?><br><?php echo $price ?></h2>
+          </div>
+        </a>
     </div>
   </div>
 

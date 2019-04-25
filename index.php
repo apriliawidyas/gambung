@@ -78,9 +78,11 @@
     <div class="gambar" >
 
       <img src="images/<?php echo $image ?>" alt="produk">
+        <a href="?hehe">
       <div class="overflow">
-          <h2>NAMA<br>PRODUK</h2>
+          <h2><?php echo $name ?></h2>
       </div>
+        </a>
     </div>
   </div>
 

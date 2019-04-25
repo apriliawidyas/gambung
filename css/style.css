@@ -140,7 +140,16 @@ input:focus{
   color: #68BB59;
   margin: auto;
   font-weight: bold;
-  padding: 250px 0px;
+  padding: 285px 0px;
+  font-size: 60px;
+}
+
+.list h2{
+  text-align: center;
+  color: #68BB59;
+  margin: auto;
+  font-weight: bold;
+  padding: 150px 0px;
   font-size: 60px;
 }
 

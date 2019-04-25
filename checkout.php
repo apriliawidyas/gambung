@@ -10,10 +10,10 @@ include 'partition/header.php';
 
 
 $id = $_SESSION['user_id'];
-$sql = "SELECT * FROM produk a JOIN cart b ON a.id = b.id_produk WHERE b.user_id = '$id'";
+$sql = "SELECT SUM(harga*kuantitas) as total,nama,gambar,harga,kuantitas,b.id FROM produk a JOIN cart b ON a.id = b.id_produk WHERE b.user_id = '$id' GROUP BY b.id ";
 $result = $conn->query($sql);
 $no = 0;
-
+$total = 0;
 ?>
 <link rel="icon" href="image/gambung.png">
 <link rel="stylesheet" href="css/bootstrap.css">
@@ -61,6 +61,8 @@ include 'partition/nav.php';
 									$kuantitas = $row['kuantitas'];
 									$id = $row['id']; 
 									$no++;
+                                    $total += $row['total'];
+
 								?>
 								<tr>
 									<th scope="row">
@@ -105,7 +107,7 @@ include 'partition/nav.php';
 			<div class="row bg-light">
 				<div class="col-lg-12" style="text-align: right;">
 					<h4>Total Pembayaran</h4>
-					<h3 style="font-size: 40px; color: #4C9A2A; padding: 5px 0px;">Rp 300.000</h3>
+					<h3 style="font-size: 40px; color: #4C9A2A; padding: 5px 0px;"><?php echo $total ?></h3>
 					<a href="transfer.php"><button class="btn btn-warning" style="width: 200px; color: white; font-weight: bold;s">Buat Pesanan</button>
 					</a>
 				</div>

@@ -2,11 +2,48 @@
     require "conn.php";
   require "partition/header.php";
 
-  $sql = "SELECT * FROM produk";
+
+    $id = $_GET['id'];
+  $sql = "SELECT * FROM produk WHERE id='$id'";
   $result = $conn->query($sql);
-$limit = 0;
+    while($row = $result->fetch_assoc()) {
+        $name = $row['nama'];
+        $image = $row['gambar'];
+        $price = $row['harga'];
+    }
+
+
+    if(isset($_POST['beli'])){
+        if($_SESSION['status'] == "login"){
+            $id_user = $_SESSION['user_id'];
+            $kuantitas = $_POST['kuantitas'];
+            $sql = "INSERT INTO cart VALUES(NULL, '$id_user','$id', $kuantitas )";
+            if($conn->query($sql) === TRUE){
+                echo "<script type='text/javascript'>
+        			alert('Berhasil Dimasukan ke Cart');
+                     </script>";
+            }else{
+                echo "<script type='text/javascript'>
+        			alert('Gagal Memasukan ke Cart');
+                     </script>";
+            }
+        }else{
+            header("location:login.php");
+        }
+
+
+    }
 
 ?>
+
+<!--<link rel="stylesheet" href="styledetailproduk/css/bootstrap.min.css"/>-->
+<link rel="stylesheet" href="styledetailproduk/css/font-awesome.min.css"/>
+<link rel="stylesheet" href="styledetailproduk/css/flaticon.css"/>
+<link rel="stylesheet" href="styledetailproduk/css/slicknav.min.css"/>
+<link rel="stylesheet" href="styledetailproduk/css/jquery-ui.min.css"/>
+<link rel="stylesheet" href="styledetailproduk/css/owl.carousel.min.css"/>
+<link rel="stylesheet" href="styledetailproduk/css/animate.css"/>
+<link rel="stylesheet" href="styledetailproduk/css/style.css"/>
 
 <body>
 
@@ -14,38 +51,118 @@ $limit = 0;
   require "partition/nav.php";
   ?>
 
-<div class="container-fluid">
+ <div class="container-fluid">
 
 
 <!-- disini product -->
-    <div class="container-fluid">
-        <div class="row-fluid">
-            <div class="span12">
-                <div class="row">
-                    <div class="col-md-5">
-                    <div class="span4">
-                        <img src="image/gambung.png" alt="Gambar">
+    <section class="product-section">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="product-pic-zoom">
+                        <img class="product-big-img" src="images/<?php echo $image ?>" alt="">
                     </div>
+                    <div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
+                        <div class="product-thumbs-track">
+                            <div class="pt active" data-imgbigurl="images/<?php echo $image ?>"><img src="images/<?php echo $image ?>" alt=""></div>
+                            <div class="pt" data-imgbigurl="images/<?php echo $image ?>"><img src="images/<?php echo $image ?>" alt=""></div>
+                            <div class="pt" data-imgbigurl="images/<?php echo $image ?>"><img src="images/<?php echo $image ?>" alt=""></div>
+                            <div class="pt" data-imgbigurl="images/<?php echo $image ?>"><img src="images/<?php echo $image ?>" alt=""></div>
+                        </div>
                     </div>
-                    <div class="col-md-5">
-                    <div class="span8">
-                        <h5>Deskripsi</h5>
-                        <p align="justify">Produk ini adalah produk yang dijual oleh gambung</p>
-                        <h5>Harga : 80000</h5>
+                </div>
+                <div class="col-lg-6 product-details">
+                    <h2 class=""><strong><?php echo $name ?></strong></h2>
+                    <h3 class="p-price"><?php echo $price ?></h3>
+                    <h4 class="p-stock">Available: <span>In Stock</span></h4>
+
+                    <form action="" method="post">
+                        <div class="quantity">
+                            <p>Quantity</p>
+                            <div class="pro-qty"><input type="text" value="1" name="kuantitas"></div>
+                        </div>
+                        <button class="site-btn" type="submit" name="beli">BELI</button>
+                    </form>
+
+<!--                    accoordion-->
+                    <div id="accordion" class="accordion-area">
+                        <div class="panel">
+                            <div class="panel-header" id="headingOne">
+                                <button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">information</button>
+                            </div>
+                            <div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="panel-body">
+                                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin pharetra tempor so dales. Phasellus sagittis auctor gravida. Integer bibendum sodales arcu id te mpus. Ut consectetur lacus leo, non scelerisque nulla euismod nec.</p>
+                                </div>
+                            </div>
+                        </div>
                     </div>
+                    <div class="social-sharing">
+                        <a href=""><i class="fa fa-google-plus"></i></a>
+                        <a href=""><i class="fa fa-facebook"></i></a>
+                        <a href=""><i class="fa fa-twitter"></i></a>
+                        <a href=""><i class="fa fa-youtube"></i></a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
+<!--RELATED PRODUK-->
+    <section class="related-product-section">
+        <div class="container">
+            <div class="section-title">
+                <h2>PRODUK LAINNYA</h2>
+            </div>
+            <div class="product-slider owl-carousel">
+                <?php
+
+                $sql = "SELECT * FROM produk";
+                $result = $conn->query($sql);
+                while($row = $result->fetch_assoc()) {
+                    $name = $row['nama'];
+                    $image = $row['gambar'];
+                    $price = $row['harga'];
+
+
+                    ?>
+                    <a href="detailproduk.php?id=<?php echo $row['id']; ?>">
+                    <div class="product-item">
+                        <div class="pi-pic">
+                            <img src="images/<?php echo $image ?>" alt="" height="300px">
+<!--                            <div class="pi-links">-->
+<!--                                <a href="#" class="add-card"><i class="flaticon-bag"></i><span>ADD TO CART</span></a>-->
+<!--                            </div>-->
+                        </div>
+                        <div class="pi-text">
+                            <h6><?php echo $price ?></h6>
+                            <p><?php echo $name ?></p>
+                        </div>
+                    </div>
+                    </a>
+                    <?php } ?>
+
+            </div>
+        </div>
+    </section>
 
 <!-- sampai disini -->
+<!-- tinggal kenangan-->
 
 </div>
 
   <?php
   require "partition/footer.php";
   ?>
+
+  <script src="styledetailproduk/js/jquery-3.2.1.min.js"></script>
+  <script src="styledetailproduk/js/bootstrap.min.js"></script>
+  <script src="styledetailproduk/js/jquery.slicknav.min.js"></script>
+  <script src="styledetailproduk/js/owl.carousel.min.js"></script>
+  <script src="styledetailproduk/js/jquery.nicescroll.min.js"></script>
+  <script src="styledetailproduk/js/jquery.zoom.min.js"></script>
+  <script src="styledetailproduk/js/jquery-ui.min.js"></script>
+  <script src="styledetailproduk/js/main.js"></script>
+
 
 </body>
 </html>
