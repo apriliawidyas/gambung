@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 23, 2019 at 04:00 PM
+-- Generation Time: Apr 28, 2019 at 05:08 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.4
 
@@ -32,16 +32,19 @@ CREATE TABLE `cart` (
   `id` int(11) NOT NULL,
   `user_id` int(11) NOT NULL,
   `id_produk` int(11) NOT NULL,
-  `kuantitas` int(11) NOT NULL
+  `kuantitas` int(11) NOT NULL,
+  `status` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `cart`
 --
 
-INSERT INTO `cart` (`id`, `user_id`, `id_produk`, `kuantitas`) VALUES
-(6, 8, 16, 10),
-(8, 8, 16, 2);
+INSERT INTO `cart` (`id`, `user_id`, `id_produk`, `kuantitas`, `status`) VALUES
+(1, 7, 14, 2, 1),
+(2, 7, 13, 2, 1),
+(3, 7, 12, 3, 1),
+(4, 7, 16, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -68,6 +71,29 @@ INSERT INTO `produk` (`id`, `penjual_id`, `nama`, `harga`, `keterangan`, `gambar
 (14, 3, 'Kopi Enakdsds', '200000', 'Kopi Enak', 'Kopi Enakdsds.jpeg'),
 (15, 3, 'dsa', '23', 'das', 'dsa.jpeg'),
 (16, 4, 'Kripik Teh', '25000', 'Kripik Teh Ciwidey, dari bahan alami', 'Kripik Teh.png');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `transfer`
+--
+
+CREATE TABLE `transfer` (
+  `id_transfer` int(11) NOT NULL,
+  `id_user` int(11) NOT NULL,
+  `total` int(11) NOT NULL,
+  `status_upload` int(1) NOT NULL,
+  `status_kirim` int(11) NOT NULL,
+  `date_upload` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `transfer`
+--
+
+INSERT INTO `transfer` (`id_transfer`, `id_user`, `total`, `status_upload`, `status_kirim`, `date_upload`) VALUES
+(1, 7, 201234, 1, 0, '2019-04-28'),
+(2, 7, 53696, 1, 0, '2019-04-28');
 
 -- --------------------------------------------------------
 
@@ -121,6 +147,25 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 (2, 'penjual'),
 (3, 'pembeli');
 
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `voucher`
+--
+
+CREATE TABLE `voucher` (
+  `id` int(255) NOT NULL,
+  `kode` varchar(10) NOT NULL,
+  `diskon` decimal(3,2) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `voucher`
+--
+
+INSERT INTO `voucher` (`id`, `kode`, `diskon`) VALUES
+(1, 'ERZGANTENG', '0.50');
+
 --
 -- Indexes for dumped tables
 --
@@ -138,6 +183,12 @@ ALTER TABLE `produk`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `transfer`
+--
+ALTER TABLE `transfer`
+  ADD PRIMARY KEY (`id_transfer`);
+
+--
 -- Indexes for table `user`
 --
 ALTER TABLE `user`
@@ -151,6 +202,13 @@ ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `voucher`
+--
+ALTER TABLE `voucher`
+  ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `kode` (`kode`);
+
+--
 -- AUTO_INCREMENT for dumped tables
 --
 
@@ -158,7 +216,7 @@ ALTER TABLE `user_role`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `produk`
@@ -167,10 +225,22 @@ ALTER TABLE `produk`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT for table `transfer`
+--
+ALTER TABLE `transfer`
+  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
+-- AUTO_INCREMENT for table `voucher`
+--
+ALTER TABLE `voucher`
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

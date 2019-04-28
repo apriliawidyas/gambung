@@ -13,7 +13,7 @@ $limit = 0;
   <?php
   require "partition/nav.php";
   ?>
-  
+
 
 <div class="container-fluid">
 

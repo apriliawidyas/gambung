@@ -28,16 +28,19 @@ if(isset($_SESSION['status'])){
     <li class="nav-item">
 
       <?php if ($check != null): ?>
+      <li class="nav-item">
+          <a class="nav-link" href="transfer.php">TRANSAKSI</a>
+      </li>
+      <li class="nav-item">
+          <a class="nav-link" href="cart.php"><img src="image/shopping.svg" alt=""></a>
+      </li>
         <a class="nav-link" href="#"><img src="image/account.svg" alt="">
         </a>
         </li>
         <li>
         <a class="nav-link" href="logout.php">LOGOUT</a>
         </li>
-        <li class="nav-item">
-          <a class="nav-link" href="cart.php"><img src="image/shopping.svg" alt="">
-          </i></a>
-        </li>
+
       <?php else: ?>
         <a href="login.php"><button type="button" name="button" class="btn btn-primary">Masuk / Daftar</button></a>
       <?php endif; ?>

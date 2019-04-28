@@ -5,7 +5,7 @@ if($_SESSION['status'] !="login"){
 }
 
 	$id = $_SESSION['user_id'];
-	$sql = "SELECT SUM(harga*kuantitas) as total,nama,gambar,harga,kuantitas,b.id FROM produk a JOIN cart b ON a.id = b.id_produk WHERE b.user_id = '$id' GROUP BY b.id ";
+	$sql = "SELECT SUM(harga*kuantitas) as total,nama,gambar,harga,kuantitas,status,b.id FROM produk a JOIN cart b ON a.id = b.id_produk WHERE b.user_id = '$id' AND status = 0 GROUP BY b.id ";
 	$result = $conn->query($sql);
 
 $total = 0;
@@ -105,13 +105,14 @@ include 'partition/nav.php';
 					</thead>
 					<tbody>
 						<?php while($row = $result->fetch_assoc()){
-									$name = $row['nama'];
-									$image = $row['gambar'];
-									$price = $row['harga'];
-									$kuantitas = $row['kuantitas'];
-									$id = $row['id'];
 
-                            $total += $row['total'];
+                                $name = $row['nama'];
+                                $image = $row['gambar'];
+                                $price = $row['harga'];
+                                $kuantitas = $row['kuantitas'];
+                                $id = $row['id'];
+//                                $status = $row['status'];
+                                $total += $row['total'];
 
                             ?>
 							<tr>

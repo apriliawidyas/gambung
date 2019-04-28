@@ -17,10 +17,11 @@
         if($_SESSION['status'] == "login"){
             $id_user = $_SESSION['user_id'];
             $kuantitas = $_POST['kuantitas'];
-            $sql = "INSERT INTO cart VALUES(NULL, '$id_user','$id', $kuantitas )";
+            $sql = "INSERT INTO cart VALUES(NULL, '$id_user','$id', $kuantitas, 0 )";
             if($conn->query($sql) === TRUE){
                 echo "<script type='text/javascript'>
         			alert('Berhasil Dimasukan ke Cart');
+        			 window.location.href='cart.php';
                      </script>";
             }else{
                 echo "<script type='text/javascript'>
