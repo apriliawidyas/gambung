@@ -8,7 +8,6 @@
 ?>
 <?php
 
-
 //Get Data Kabupaten
 $curl = curl_init();
 curl_setopt_array($curl, array(
@@ -20,7 +19,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
-        "Key: d631df6429af64d03766ca8ec46be886"
+        "Key: d631df6429af64d03766ca8ec46be886",
     ),
 ));
 
@@ -39,7 +38,6 @@ for ($i = 0; $i < count($data['rajaongkir']['results']); $i++) {
 echo "</select><br><br><br>";
 //Get Data Kabupaten
 
-
 //-----------------------------------------------------------------------------
 
 //Get Data Provinsi
@@ -54,7 +52,7 @@ curl_setopt_array($curl, array(
     CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
     CURLOPT_CUSTOMREQUEST => "GET",
     CURLOPT_HTTPHEADER => array(
-        "Key: d631df6429af64d03766ca8ec46be886"
+        "Key: d631df6429af64d03766ca8ec46be886",
     ),
 ));
 
