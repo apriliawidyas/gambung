@@ -1,142 +1,117 @@
 <?php
-//$response = $this->rajaongkir->province();
-//$data = json_decode($response, true);
-//for ($i=0; $i < count($data['rajaongkir']['results']); $i++) {
-//    echo "<option value='".$data['rajaongkir']['results'][$i]['province_id']."'>".$data['rajaongkir']['results'][$i]['province']."</option>";
-//}
 
-?>
-<?php
+function curl($url, $type = "GET", $request = null) // TODO:: change this implementation later, not efficient.
 
-//Get Data Kabupaten
-$curl = curl_init();
-curl_setopt_array($curl, array(
-    CURLOPT_URL => "http://api.rajaongkir.com/starter/city",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_HTTPHEADER => array(
-        "Key: d631df6429af64d03766ca8ec46be886",
-    ),
-));
+{
+    $key = "d631df6429af64d03766ca8ec46be886";
+    $curl = curl_init();
+    curl_setopt_array($curl, array(
+        CURLOPT_URL => $url,
+        CURLOPT_RETURNTRANSFER => true,
+        CURLOPT_ENCODING => "",
+        CURLOPT_MAXREDIRS => 10,
+        CURLOPT_TIMEOUT => 30,
+        CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+        CURLOPT_CUSTOMREQUEST => $type,
+        CURLOPT_POSTFIELDS => $request,
+        CURLOPT_HTTPHEADER => array(
+            "content-type: application/x-www-form-urlencoded",
+            "Key: $key",
+        ),
+    ));
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+    curl_close($curl);
+    $data = json_decode($response, true);
 
-$response = curl_exec($curl);
-$err = curl_error($curl);
+    if ($err) {
+        die("Failed to get response");
+    }
 
-curl_close($curl);
-
-echo "<label>Kota Asal</label><br>";
-echo "<select name='asal' id='asal'>";
-echo "<option>Pilih Kota Asal</option>";
-$data = json_decode($response, true);
-for ($i = 0; $i < count($data['rajaongkir']['results']); $i++) {
-    echo "<option value='" . $data['rajaongkir']['results'][$i]['city_id'] . "'>" . $data['rajaongkir']['results'][$i]['city_name'] . "</option>";
+    return $data['rajaongkir']['results'];
 }
-echo "</select><br><br><br>";
-//Get Data Kabupaten
 
-//-----------------------------------------------------------------------------
+function getDataKota()
+{
+    $data = curl("http://api.rajaongkir.com/starter/city");
 
-//Get Data Provinsi
-$curl = curl_init();
-
-curl_setopt_array($curl, array(
-    CURLOPT_URL => "http://api.rajaongkir.com/starter/province",
-    CURLOPT_RETURNTRANSFER => true,
-    CURLOPT_ENCODING => "",
-    CURLOPT_MAXREDIRS => 10,
-    CURLOPT_TIMEOUT => 30,
-    CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
-    CURLOPT_CUSTOMREQUEST => "GET",
-    CURLOPT_HTTPHEADER => array(
-        "Key: d631df6429af64d03766ca8ec46be886",
-    ),
-));
-
-$response = curl_exec($curl);
-$err = curl_error($curl);
-
-echo "Provinsi Tujuan<br>";
-echo "<select name='provinsi' id='provinsi'>";
-echo "<option>Pilih Provinsi Tujuan</option>";
-$data = json_decode($response, true);
-for ($i = 0; $i < count($data['rajaongkir']['results']); $i++) {
-    echo "<option value='" . $data['rajaongkir']['results'][$i]['province_id'] . "'>" . $data['rajaongkir']['results'][$i]['province'] . "</option>";
+    return $data;
 }
-echo "</select><br><br>";
-//Get Data Provinsi
+
+function countPrice($origin, $destination, $courier = "jne", $weight)
+{
+    $request = "origin=$origin&destination=$destination&weight=$weight&courier=$courier";
+
+    $data = curl("https://api.rajaongkir.com/starter/cost", "POST", $request);
+
+    return $data;
+}
 
 ?>
 
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
 </head>
-
 <body>
 
-<label>Kabupaten Tujuan</label><br>
-<select id="kabupaten" name="kabupaten"></select><br><br>
+    <?php if (!empty($_POST)): ?>
+        <div>
+            <?php $hasil = countPrice($_POST['kotaAsal'], $_POST['kotaTujuan'], $_POST['kurir'], $_POST['weight']);?>
+            <?php foreach ($hasil as $result): ?>
+                <h3>Hasil</h3>
+                <h4>Nama Ekspedisi: <?php echo $result['name'] ?></h4>
+                    <?php foreach ($result['costs'] as $harga): ?>
+                        <h5>Paket: <?php echo $harga['service'] ?> - <?php echo $harga['description'] ?></h5>
+                        <h5>Harga: <?php echo $harga['cost'][0]['value'] ?></h5>
+                        <h5>Waktu sampai: <?php echo $harga['cost'][0]['etd'] ?> hari</h5>
+                        <hr>
+                    <?php endforeach;?>
+            <?php endforeach;?>
+        </div>
+    <?php endif;?>
 
-<label>Kurir</label><br>
-<select id="kurir" name="kurir">
-    <option value="jne">JNE</option>
-    <option value="tiki">TIKI</option>
-</select><br><br>
+    <form method="POST">
 
-<label>Berat (gram)</label><br>
-<input id="berat" type="text" name="berat" value="500"/>
-<br><br>
+        <div>
+            Kota asal:<br>
+            <select name="kotaAsal">
+                <?php foreach (getDataKota() as $result): ?>
+                    <option value="<?php echo $result['city_id'] ?>"><?php echo $result['city_name'] ?></option>
+                <?php endforeach;?>
+            </select>
+        </div>
 
-<input id="cek" type="submit" value="Cek"/>
+        <div>
+            Kota tujuan:<br>
+            <select name="kotaTujuan">
+                <?php foreach (getDataKota() as $result): ?>
+                    <option value="<?php echo $result['city_id'] ?>"><?php echo $result['city_name'] ?></option>
+                <?php endforeach;?>
+            </select>
+        </div>
 
-<div id="ongkir"></div>
+        <div>
+            Kurir:<br>
+            <select name="kurir">
+                <option value="jne">TIKI</option>
+                <option value="tiki">JNE</option>
+            </select>
+        </div>
+
+        <div>
+            Berat barang: <br>
+            <input type="text" name="weight" placeholder="Berat Barang">
+        </div>
+
+        <div>
+            <input type="submit">
+        </div>
+    </form>
 
 </body>
 </html>
-
-
-<script type="text/javascript">
-
-    $(document).ready(function () {
-        $('#provinsi').change(function () {
-
-            //Pada tahap ini value diambil dari option select provinsi kemudian parameternya dikirimkan dengan memakai ajax
-            var prov = $('#provinsi').val();
-
-            $.ajax({
-                type: 'GET',
-                url: 'http://domainAnda.tld/rajaongkir/cek_kabupaten.php',
-                data: 'prov_id=' + prov,
-                success: function (data) {
-
-                    //jika data berhasil didapatkan, tampilkan ke dalam option select kabupaten
-                    $("#kabupaten").html(data);
-                }
-            });
-        });
-
-        $("#cek").click(function () {
-            //Pada tahap ini value diambil dari option select provinsi asal, kabupaten, kurir, berat kemudian parameternya juga akan dikirimkan pakai ajax
-            var asal = $('#asal').val();
-            var kab = $('#kabupaten').val();
-            var kurir = $('#kurir').val();
-            var berat = $('#berat').val();
-
-            $.ajax({
-                type: 'POST',
-                url: 'http://domainAnda.tld/rajaongkir/cek_ongkir.php',
-                data: {'kab_id': kab, 'kurir': kurir, 'asal': asal, 'berat': berat},
-                success: function (data) {
-
-                    //jika data sudah berhasil didapat, akan ditampilkan ke dalam element div ongkir
-                    $("#ongkir").text(data);
-                }
-            });
-        });
-    });
-</script>
