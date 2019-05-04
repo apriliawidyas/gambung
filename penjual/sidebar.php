@@ -77,6 +77,12 @@ if($_SESSION['status'] !="login"){
           </div>
         </li>
 
+        <li class="nav-item">
+          <a class="nav-link" href="edit_toko.php">
+            <i class="fas fa-fw fa-cog"></i>
+            <span>Edit Toko</span>
+          </a>
+        </li>
 
       </ul>
       <!-- End of Sidebar -->

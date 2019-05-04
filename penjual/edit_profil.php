@@ -51,15 +51,12 @@ if (isset($_POST['btn_submit'])) {
   $conn->close();
 
 
-
-
-
  ?>
 
  <div class="container">
  <!-- Form Login -->
- <h1>Edit Profil</h1>
- <form action="<?=($_SERVER['PHP_SELF'])?>" method="post">
+ <h2 style="font-weight: bold;">Edit Profil</h2>
+ <form action="<?=($_SERVER['PHP_SELF'])?>" method="post" style="padding: 50px 150px;">
    <input type="hidden" class="form-control" name="id_penjual" value="<?php echo $user_id ?>">
    <div class="form-group">
      <label for="">Nama Depan</label>
@@ -96,3 +93,19 @@ if (isset($_POST['btn_submit'])) {
 
 
  </div>
+
+ <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Core plugin JavaScript-->
+    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
+
+    <!-- Custom scripts for all pages-->
+    <script src="js/sb-admin-2.min.js"></script>
+
+    <!-- Page level plugins -->
+    <script src="vendor/datatables/jquery.dataTables.min.js"></script>
+    <script src="vendor/datatables/dataTables.bootstrap4.min.js"></script>
+
+    <!-- Page level custom scripts -->
+    <script src="js/demo/datatables-demo.js"></script>

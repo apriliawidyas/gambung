@@ -64,14 +64,25 @@ if(isset($_POST['beli'])){
             <div class="row">
                 <div class="col-lg-6">
                     <div class="product-pic-zoom">
-                        <img class="product-big-img" src="images/<?php echo $image ?>" alt="">
+                        <img class="product-big-img" src="images/<?php echo $image ?>" alt="" height="600">
                     </div>
                     <div class="product-thumbs" tabindex="1" style="overflow: hidden; outline: none;">
                         <div class="product-thumbs-track">
                             <div class="pt active" data-imgbigurl="images/<?php echo $image ?>"><img src="images/<?php echo $image ?>" alt=""></div>
-                            <div class="pt" data-imgbigurl="images/<?php echo $image ?>"><img src="images/<?php echo $image ?>" alt=""></div>
-                            <div class="pt" data-imgbigurl="images/<?php echo $image ?>"><img src="images/<?php echo $image ?>" alt=""></div>
-                            <div class="pt" data-imgbigurl="images/<?php echo $image ?>"><img src="images/<?php echo $image ?>" alt=""></div>
+
+                            <?php 
+
+                            $id_produk = $_GET['id'];
+                            $sql = "SELECT * FROM foto_produk WHERE id_produk = '$id_produk'";
+
+                            $result = mysqli_query($conn,$sql);
+                            while($row = $result->fetch_assoc()){
+                                $tambahan = $row['gambar'];
+                                ?>
+
+                                <div class="pt" data-imgbigurl="images/<?php echo $tambahan; ?>"><img src="images/<?php echo $tambahan; ?>" alt=""></div>
+
+                            <?php } ?>
                         </div>
                     </div>
                 </div>
@@ -89,10 +100,10 @@ if(isset($_POST['beli'])){
                     </form>
 
                     <!--                    accoordion-->
-                    <div id="accordion" class="accordion-area">
+                    <div id="" class="accordion-area">
                         <div class="panel">
                             <div class="panel-header" id="headingOne">
-                                <button class="panel-link active" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">information</button>
+                                <button class="panel-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">information</button>
                             </div>
                             <div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                 <div class="panel-body">
@@ -100,13 +111,32 @@ if(isset($_POST['beli'])){
                                 </div>
                             </div>
                         </div>
+
+                        <?php 
+
+                        $id_produk = $_GET['id'];
+                        $sql = "SELECT tk.nama_toko,tk.gambar FROM toko tk JOIN produk pr ON tk.id_toko = pr.id_toko WHERE pr.id = '$id_produk'";
+                        $result = mysqli_query($conn,$sql);
+                        $row = $result->fetch_assoc();
+                        $gambar = $row['gambar'];
+                        $nama_toko = $row['nama_toko'];
+
+                        ?>
+
+
+                        <div class="">
+                            <div class="panel-header" id="headingOne">
+                                <button class="panel-link" data-toggle="collapse" data-target="#collapse1" aria-expanded="true" aria-controls="collapse1">Toko</button>
+                            </div>
+                            <div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                                <div class="panel-body" style="display: inline;">
+                                    <img src="images/<?php echo $gambar; ?>" height="80px;" width="80px" style="margin-top: 20px; border-radius: 50px;">
+                                    <h5 style="display: inline;font-size: 22px;"><?php echo $nama_toko; ?></h5>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="social-sharing">
-                        <a href=""><i class="fa fa-google-plus"></i></a>
-                        <a href=""><i class="fa fa-facebook"></i></a>
-                        <a href=""><i class="fa fa-twitter"></i></a>
-                        <a href=""><i class="fa fa-youtube"></i></a>
-                    </div>
+
                 </div>
             </div>
         </div>

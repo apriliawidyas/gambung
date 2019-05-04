@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Bulan Mei 2019 pada 16.36
+-- Waktu pembuatan: 04 Bulan Mei 2019 pada 20.17
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -43,12 +43,8 @@ CREATE TABLE `cart` (
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `id_produk`, `kuantitas`, `status`, `status_pengiriman`, `id_transfer`) VALUES
-(2, 7, 16, 4, 1, 0, 0),
-(3, 7, 14, 3, 1, 0, 0),
-(4, 9, 17, 3, 0, 1, 0),
-(7, 7, 16, 4, 1, 0, 0),
-(13, 8, 17, 6, 1, 1, 15),
-(14, 8, 17, 6, 1, 1, 16);
+(1, 7, 17, 1, 1, 0, 1),
+(2, 7, 16, 4, 1, 0, 2);
 
 -- --------------------------------------------------------
 
@@ -61,6 +57,17 @@ CREATE TABLE `foto_produk` (
   `id_produk` int(11) NOT NULL,
   `gambar` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `foto_produk`
+--
+
+INSERT INTO `foto_produk` (`id_foto`, `id_produk`, `gambar`) VALUES
+(11, 40, 'Coba_AL.png.png'),
+(12, 40, 'Coba_Frame.png.png'),
+(13, 40, 'Coba_psTcwrZyvD.png'),
+(14, 40, 'Coba_b7tp4EmGqr.png'),
+(16, 41, 'Kopi Anjay_APCG0Eq2Ko.png');
 
 -- --------------------------------------------------------
 
@@ -112,7 +119,7 @@ CREATE TABLE `toko` (
 --
 
 INSERT INTO `toko` (`id_toko`, `id_user`, `nama_toko`, `alamat`, `gambar`) VALUES
-(2, 9, 'dwa', 'dwa', 'dwa.jpeg');
+(2, 9, 'Toko Erza', 'Ini Alamat', 'dwa.jpeg');
 
 -- --------------------------------------------------------
 
@@ -135,9 +142,8 @@ CREATE TABLE `transfer` (
 --
 
 INSERT INTO `transfer` (`id_transfer`, `id_user`, `total`, `status_upload`, `status_verifikasi`, `date_upload`, `time_checkout`) VALUES
-(1, 7, 152000, 1, 1, '0000-00-00', ''),
-(15, 8, 60062000, 1, 1, '2019-05-04', 'Europe/Berlin'),
-(16, 8, 60052000, 1, 1, '2019-05-04', '11:48:am');
+(1, 7, 10052000, 1, 0, '2019-05-04', '05:06:pm'),
+(2, 7, 162000, 0, 0, '0000-00-00', '05:06:pm');
 
 -- --------------------------------------------------------
 
@@ -169,7 +175,7 @@ INSERT INTO `user` (`id`, `role_id`, `nama_depan`, `nama_belakang`, `tanggal_lah
 (6, 3, 'Rizqi', 'Prima', '1998-01-11', '', 'Bandung', '2147483647', 'rizqiphdddd@gmail.com', 'rizqiphdddd@gmail.com'),
 (7, 3, 'Aprilia', 'Widyas', '1998-04-19', 'Klaten', 'Bojongsoang', '082216650304', 'apriliawidyas@gmail.com', 'adgjmptwe'),
 (8, 3, 'Erza', 'Ganteng', '2019-04-10', 'Klaten', 'Asrama gd 9', '085', 'erzaganteng@gmail.com', 'erza'),
-(9, 2, 'Erza', 'Gantenk', '2019-05-07', '', 'hatimu yang terdalam', '123', 'erza@gmail.com', 'erza'),
+(9, 2, 'Erza', 'Gantenk Banget', '2019-05-07', '', 'hatimu yang terdalam', '123', 'erza@gmail.com', 'erza'),
 (10, 1, 'Erza Ganteng', 'Admin Ganteng', '2019-05-18', 'Bandung', 'Bojongswan', '12345612345', 'erzaadmin@gmail.com', 'erza');
 
 -- --------------------------------------------------------
@@ -276,19 +282,19 @@ ALTER TABLE `voucher`
 -- AUTO_INCREMENT untuk tabel `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `foto_produk`
 --
 ALTER TABLE `foto_produk`
-  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 
 --
 -- AUTO_INCREMENT untuk tabel `toko`
@@ -300,7 +306,7 @@ ALTER TABLE `toko`
 -- AUTO_INCREMENT untuk tabel `transfer`
 --
 ALTER TABLE `transfer`
-  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
