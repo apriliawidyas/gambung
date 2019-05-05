@@ -31,6 +31,41 @@
 </footer>
 
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
+
+<script>
+  $(document).ready(function(){
+
+   function load_unseen_notification(view = '')
+   {
+    $.ajax({
+     url:"fetch.php",
+     method:"POST",
+     data:{view:view},
+     dataType:"json",
+     success:function(data)
+     {
+      $('.notif').html(data.notification);
+      if(data.unseen_notification > 0)
+      {
+       $('.count').html(data.unseen_notification);
+     }
+   }
+ });
+  }
+
+  load_unseen_notification();
+  
+  $(document).on('click', '.dropdown-toggle', function(){
+    $('.count').html('');
+    load_unseen_notification('yes');
+  });
+  
+  setInterval(function(){ 
+    load_unseen_notification();; 
+  }, 5000);
+  
+});
+</script>

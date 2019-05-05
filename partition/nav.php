@@ -5,6 +5,7 @@ if(isset($_SESSION['status'])){
 }else{
   $check = null;
 }
+
 ?>
 
 
@@ -22,6 +23,9 @@ if(isset($_SESSION['status'])){
       <li class="nav-item">
         <a class="nav-link" href="list_produk.php">PRODUK</a>
       </li>
+       <li class="nav-item">
+        <a class="nav-link" href="listtoko.php">TOKO</a>
+      </li>
       <li class="nav-item">
         <a class="nav-link" href="contact.php">CONTACT US</a>
       </li>
@@ -35,30 +39,40 @@ if(isset($_SESSION['status'])){
             <a class="nav-link" href="cart.php"><img src="image/shopping.svg" alt=""></a>
           </li>
 
-          <div class="dropdown">
-           <a class="nav-link dropdown-toggle" href="" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="image/account.svg" alt="">
-           </a>
-           <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-            <li class="nav-item">
-              <a class="nav-link" href="editprofile.php">PROFILE</a>
-            </li>
-            <li class="nav-item">
-              <a class="nav-link" href="logout.php">LOGOUT</a>
-            </li>
-          </div>
+          <li class="dropdown">
+           <a href="#" class="dropdown-toggle" data-toggle="dropdown" style="color:white;font-size: 15px; line-height: normal; font-weight: bold;">
+            <img src="image/notif.svg" height="20px" style="margin: 12px 5px;">
+            <span class="label label-pill label-danger bg-danger count" style=" border-radius: 50px;"></span>
+            
+          </a>
+          <ul class="dropdown-menu notif">
+          </ul>
+        </li>
+
+        <div class="dropdown">
+         <a class="nav-link dropdown-toggle" href="" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><img src="image/account.svg" alt="">
+         </a>
+         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <li class="nav-item">
+            <a class="nav-link" href="editprofile.php">PROFILE</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="logout.php">LOGOUT</a>
+          </li>
         </div>
+      </div>
 
 
-
-      </li>
-
-      <?php else: ?>
-        <a href="login.php"><button type="button" name="button" class="btn btn-primary">Masuk / Daftar</button></a>
-      <?php endif; ?>
 
     </li>
 
-  </ul>
+    <?php else: ?>
+      <a href="login.php"><button type="button" name="button" class="btn btn-primary">Masuk / Daftar</button></a>
+    <?php endif; ?>
+
+  </li>
+
+</ul>
 </div>
 </nav>
 
@@ -79,3 +93,5 @@ if(isset($_SESSION['status'])){
     <input class="form-control mr-sm-2 search" type="search" placeholder="Cari" aria-label="Search" name="search">
   </form>
 </nav>
+
+

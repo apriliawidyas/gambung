@@ -1,14 +1,24 @@
 <?php
 include '../conn.php';
-$sql = "SELECT CONCAT(user.nama_depan, user.nama_belakang) as nama, tf.total, tf.date_upload, tf.id_transfer, tf.status_verifikasi
+$sql = "SELECT CONCAT(user.nama_depan, user.nama_belakang) as nama, tf.total, tf.date_upload, tf.id_transfer, tf.status_verifikasi, tf.id_user
 FROM transfer tf JOIN user user ON tf.id_user = user.id WHERE user.role_id > 0 && tf.status_upload = 1 ORDER BY tf.status_verifikasi ASC";
 $result = $conn->query($sql);
 
-if(isset($_POST['verifikasi'])){
+if(isset($_POST['verifikasi'])){ 
+  
   $id = $_POST['verifikasi'];
   $sql = "UPDATE transfer SET status_verifikasi = 1 WHERE id_transfer = '$id'";
   $result = $conn->query($sql);
   if ($result){
+
+    $sql = "SELECT id_user FROM transfer WHERE id_transfer = '$id'";
+    $result = $conn->query($sql);
+    $row = mysqli_fetch_assoc($result);
+    $iduser = $row['id_user'];
+
+    $query = "INSERT INTO notif VALUES('','$iduser','Verifikasi Pembayaran','Bukti transfer anda sudah diverifikasi',0)";
+    mysqli_query($conn,$query);
+
     echo "<script type='text/javascript'>
     alert('Berhasil verifikasi');
     window.location.href='manajemen_transaksi.php';
@@ -66,13 +76,13 @@ include 'sidebar.php';
       </tr>
     </thead>
     <tbody>
+
       <?php
       if ($result->num_rows > 0) {
             // output data of each row
         $a = 0;
         while($row = $result->fetch_assoc()) {
           $a++;
-
           echo
           "
           <form action='' method='post'>

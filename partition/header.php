@@ -14,8 +14,12 @@
     <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
     <!-- css style -->
-    <link rel="stylesheet" href="css/style.css">
+    
 
     <title>Gambung</title>
 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.0/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="css/style.css">
+    
   </head>

@@ -110,7 +110,7 @@ input:focus{
   height: 500px;
 }
 
-.gambar img, .gambarlist img{
+.gambar img, .gambarlist img, .gambartokolist img{
   display: block;
   margin-left: auto;
   margin-right: auto;
@@ -121,6 +121,10 @@ input:focus{
 
 .gambar:hover .overflow, .gambarlist:hover .overflow{
  opacity: 1;
+}
+
+.gambartokolist:hover .overflow{
+opacity: 1;
 }
 
 .overflow{

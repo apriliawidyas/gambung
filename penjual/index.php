@@ -17,6 +17,15 @@ if(isset($_POST['verifikasi'])){
     $sql = "UPDATE cart SET status_pengiriman = 1 WHERE id = '$id'";
     $result = $conn->query($sql);
     if ($result){
+
+        $sql = "SELECT user_id FROM cart WHERE id = '$id'";
+        $result = $conn->query($sql);
+        $row = mysqli_fetch_assoc($result);
+        $iduser = $row['user_id'];
+
+        $query = "INSERT INTO notif VALUES('','$iduser','Verifikasi Pengiriman','Barang anda sudah dikirim',0)";
+        mysqli_query($conn,$query);
+
         echo "<script type='text/javascript'>
         alert('Berhasil verifikasi');
         window.location.href='index.php';

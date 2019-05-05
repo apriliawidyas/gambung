@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 04 Bulan Mei 2019 pada 20.17
+-- Waktu pembuatan: 05 Bulan Mei 2019 pada 12.43
 -- Versi server: 10.1.38-MariaDB
 -- Versi PHP: 7.3.3
 
@@ -44,7 +44,9 @@ CREATE TABLE `cart` (
 
 INSERT INTO `cart` (`id`, `user_id`, `id_produk`, `kuantitas`, `status`, `status_pengiriman`, `id_transfer`) VALUES
 (1, 7, 17, 1, 1, 0, 1),
-(2, 7, 16, 4, 1, 0, 2);
+(2, 7, 16, 4, 1, 0, 2),
+(3, 8, 40, 4, 1, 0, 3),
+(4, 8, 17, 3, 1, 1, 4);
 
 -- --------------------------------------------------------
 
@@ -68,6 +70,32 @@ INSERT INTO `foto_produk` (`id_foto`, `id_produk`, `gambar`) VALUES
 (13, 40, 'Coba_psTcwrZyvD.png'),
 (14, 40, 'Coba_b7tp4EmGqr.png'),
 (16, 41, 'Kopi Anjay_APCG0Eq2Ko.png');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `notif`
+--
+
+CREATE TABLE `notif` (
+  `notif_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `notif_judul` varchar(255) NOT NULL,
+  `notif_text` varchar(255) NOT NULL,
+  `notif_status` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data untuk tabel `notif`
+--
+
+INSERT INTO `notif` (`notif_id`, `user_id`, `notif_judul`, `notif_text`, `notif_status`) VALUES
+(1, 8, 'Notifikasi Barang', 'Barang anda sudah diproses', 1),
+(2, 8, 'Notifikasi Pembayaran', 'Barang anda sudah diproses', 1),
+(3, 8, 'Verifikasi Pembayaran', 'Bukti transfer anda sudah diverifikasi', 1),
+(4, 0, 'Verifikasi Pembayaran', 'Bukti transfer anda sudah diverifikasi', 0),
+(5, 8, 'Verifikasi Pembayaran', 'Bukti transfer anda sudah diverifikasi', 1),
+(6, 8, 'Verifikasi Pengiriman', 'Barang anda sudah dikirim', 1);
 
 -- --------------------------------------------------------
 
@@ -142,8 +170,10 @@ CREATE TABLE `transfer` (
 --
 
 INSERT INTO `transfer` (`id_transfer`, `id_user`, `total`, `status_upload`, `status_verifikasi`, `date_upload`, `time_checkout`) VALUES
-(1, 7, 10052000, 1, 0, '2019-05-04', '05:06:pm'),
-(2, 7, 162000, 0, 0, '0000-00-00', '05:06:pm');
+(1, 7, 10052000, 1, 1, '2019-05-04', '05:06:pm'),
+(2, 7, 162000, 0, 0, '0000-00-00', '05:06:pm'),
+(3, 8, 4062000, 1, 1, '2019-05-05', '11:05:am'),
+(4, 8, 30052000, 1, 1, '2019-05-05', '11:20:am');
 
 -- --------------------------------------------------------
 
@@ -236,6 +266,12 @@ ALTER TABLE `foto_produk`
   ADD PRIMARY KEY (`id_foto`);
 
 --
+-- Indeks untuk tabel `notif`
+--
+ALTER TABLE `notif`
+  ADD PRIMARY KEY (`notif_id`);
+
+--
 -- Indeks untuk tabel `produk`
 --
 ALTER TABLE `produk`
@@ -282,7 +318,7 @@ ALTER TABLE `voucher`
 -- AUTO_INCREMENT untuk tabel `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `foto_produk`
@@ -291,28 +327,34 @@ ALTER TABLE `foto_produk`
   MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
+-- AUTO_INCREMENT untuk tabel `notif`
+--
+ALTER TABLE `notif`
+  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
 -- AUTO_INCREMENT untuk tabel `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
 -- AUTO_INCREMENT untuk tabel `toko`
 --
 ALTER TABLE `toko`
-  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT untuk tabel `transfer`
 --
 ALTER TABLE `transfer`
-  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT untuk tabel `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT untuk tabel `voucher`
