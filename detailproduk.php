@@ -6,6 +6,11 @@ require "partition/header.php";
 $id = $_GET['id'];
 $sql = "SELECT * FROM produk WHERE id='$id'";
 $result = $conn->query($sql);
+if (mysqli_num_rows($result) == 0) {
+    header("Location:404.php");
+}
+
+
 while($row = $result->fetch_assoc()) {
     $name = $row['nama'];
     $image = $row['gambar'];
@@ -115,7 +120,7 @@ if(isset($_POST['beli'])){
                         <?php 
 
                         $id_produk = $_GET['id'];
-                        $sql = "SELECT tk.nama_toko,tk.gambar FROM toko tk JOIN produk pr ON tk.id_toko = pr.id_toko WHERE pr.id = '$id_produk'";
+                        $sql = "SELECT tk.id_toko,tk.nama_toko,tk.gambar FROM toko tk JOIN produk pr ON tk.id_toko = pr.id_toko WHERE pr.id = '$id_produk'";
                         $result = mysqli_query($conn,$sql);
                         $row = $result->fetch_assoc();
                         $gambar = $row['gambar'];
@@ -130,8 +135,10 @@ if(isset($_POST['beli'])){
                             </div>
                             <div id="collapse1" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
                                 <div class="panel-body" style="display: inline;">
-                                    <img src="images/<?php echo $gambar; ?>" height="80px;" width="80px" style="margin-top: 20px; border-radius: 50px;">
-                                    <h5 style="display: inline;font-size: 22px;"><?php echo $nama_toko; ?></h5>
+                                    <a href="detailtoko.php?id=<?php echo $row['id_toko']; ?>">
+                                        <img src="images/<?php echo $gambar; ?>" height="80px;" width="80px" style="margin-top: 20px; border-radius: 50px;">
+                                        <h5 style="display: inline;font-size: 22px;"><?php echo $nama_toko; ?></h5>
+                                    </a>
                                 </div>
                             </div>
                         </div>

@@ -1,6 +1,25 @@
 <?php
 
 include 'sidebar.php';
+cekToko($conn);
+
+function cekToko($conn){
+  $id = $_SESSION['user_id'];
+  $sql = "SELECT * FROM toko WHERE id_user = '$id'";
+  $result = $conn->query($sql);
+  $row = mysqli_num_rows($result);
+  if ($row != 1){
+    echo"<script type='text/javascript'>
+    alert('Anda harus menginput toko');
+    window.location.href='../daftar_toko.php';
+    </script>";
+    return;
+  }else{
+    $hasil = mysqli_fetch_assoc($result);
+    $id_toko = $hasil['id_toko'];
+    return $id_toko;
+  }
+}
 
 // Update Produk
 if (isset($_POST['btn_submit'])) {

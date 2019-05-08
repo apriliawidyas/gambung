@@ -31,7 +31,7 @@ if(mysqli_num_rows($result) > 0)
 }
 else{
      $output .= '
-     <li><a href="#" class="text-bold text-italic">No Notification Found</a></li>';
+     <li><a href="#" class="text-bold text-italic">Tidak ada notifikasi</a></li>';
 }
 
 $status_query = "SELECT * FROM notif WHERE notif_status=0 AND user_id = '$id'";

@@ -65,7 +65,7 @@
   <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
     sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
     Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-    aliquip ex ea commodo consequat. - <a href="#">LIHAT PRODUK</a></p>
+    aliquip ex ea commodo consequat. - <a href="list_produk.php">LIHAT PRODUK</a></p>
 
     <?php  while(($row = $result->fetch_assoc()) && ($limit < 3)){
 									$name = $row['nama'];

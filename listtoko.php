@@ -6,10 +6,16 @@ if(isset($_GET['kategori'])){
   $kategori = $_GET['kategori'];
   $sql = "SELECT * FROM produk WHERE kategori='$kategori'";
   $result = $conn->query($sql);
+  if (mysqli_num_rows($result) == 0) {
+    header("Location:404.php");
+  }
 }else if(isset($_GET['search'])) {
   $cari = $_GET['search'];
   $sql = "SELECT * FROM produk WHERE nama like '%$cari%' or keterangan like '%$cari%' or kategori like '%$cari%' ";
   $result = $conn->query($sql);
+  if (mysqli_num_rows($result) == 0) {
+    header("Location:404.php");
+  }
 } else {
   $sql = "SELECT * FROM toko";
   $result = $conn->query($sql);
@@ -40,6 +46,7 @@ if(isset($_GET['kategori'])){
         <?php  while($row = $result->fetch_assoc()){
          $name = $row['nama_toko'];
          $image = $row['gambar'];
+         $id = $row['id_toko'];
 
          ?>
 
@@ -47,7 +54,7 @@ if(isset($_GET['kategori'])){
           <div class="gambarlist" >
 
             <img src="images/<?php echo $image ?>" alt="produk">
-            <a href="detailtoko.php?id=<?php echo $row['id']; ?>"  >
+            <a href="detailtoko.php?id=<?php echo $id ?>">
               <div class="overflow list">
                 <br>
                 <br>

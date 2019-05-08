@@ -6,6 +6,11 @@ if (isset($_GET['id'])) {
     $id_toko = $_GET['id'];
     $sql = "SELECT * FROM toko WHERE id_toko = '$id_toko'";
     $result = mysqli_query($conn, $sql);
+
+    if (mysqli_num_rows($result) == 0) {
+        header("Location:404.php");
+    }
+    
     $row = mysqli_fetch_assoc($result);
 
 }else{

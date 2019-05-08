@@ -31,12 +31,6 @@ require "partition/nav.php";
 					<p>Jalan</p>
 					<p>No Telp</p>
 					<p>Email</p>
-					<div class="contact-social">
-						<a href="#"><i class="fa fa-instagram"></i></a>
-						<a href="#"><i class="fa fa-facebook"></i></a>
-						<a href="#"><i class="fa fa-twitter"></i></a>
-						<a href="#"><i class="fa fa-google-plus"></i></a>
-					</div>
 					<form class="contact-form">
 						<input type="text" placeholder="Nama">
 						<input type="text" placeholder="Email">

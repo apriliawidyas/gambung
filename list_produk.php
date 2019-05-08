@@ -6,10 +6,21 @@ if(isset($_GET['kategori'])){
   $kategori = $_GET['kategori'];
   $sql = "SELECT * FROM produk WHERE kategori='$kategori'";
   $result = $conn->query($sql);
+  if (mysqli_num_rows($result) == 0) {
+    header("Location:404.php");
+  }
 }else if(isset($_GET['search'])) {
-  $cari = $_GET['search'];
-  $sql = "SELECT * FROM produk WHERE nama like '%$cari%' or keterangan like '%$cari%' or kategori like '%$cari%' ";
-  $result = $conn->query($sql);
+
+  if ($_GET['search'] == "") {
+    header("Location:404.php");
+  } else {
+    $cari = $_GET['search'];
+    $sql = "SELECT * FROM produk WHERE nama like '%$cari%' or keterangan like '%$cari%' or kategori like '%$cari%' ";
+    $result = $conn->query($sql);
+    if (mysqli_num_rows($result) == 0) {
+      header("Location:404.php");
+    }
+  }
 } else {
   $sql = "SELECT * FROM produk";
   $result = $conn->query($sql);
