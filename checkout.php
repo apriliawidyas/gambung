@@ -53,7 +53,6 @@ function countPrice($origin, $destination, $courier, $weight)
 
     $data = curl("https://api.rajaongkir.com/starter/cost", "POST", $request);
 
-
     return $data;
 }
 
@@ -120,8 +119,7 @@ if (isset($_POST['cekvoucer'])) {
 function getKota($conn,$id){
     $sql = "SELECT * FROM user WHERE id = '$id'";
     $result = $conn->query($sql);
-    $kota;
-    $id_kota;
+
     if(mysqli_num_rows($result) == 1){
         $row = mysqli_fetch_assoc($result);
         $kota = $row['kota'];
@@ -139,11 +137,12 @@ function getKota($conn,$id){
 }
 
 function getBerat($conn,$id){
-    $sql = "SELECT * FROM user WHERE id = '$id'";
+    $sql = "SELECT SUM(pr.berat*cart.kuantitas) as berat, pr.nama FROM cart cart JOIN produk pr ON pr.id = cart.id_produk 
+JOIN user user ON user.id = cart.user_id WHERE cart.user_id = '$id' AND cart.status = 0 ";
     $result = $conn->query($sql);
     if(mysqli_num_rows($result) == 1){
         $row = mysqli_fetch_assoc($result);
-        return $row['kota'];
+        return $row['berat'];
     }
 }
 
@@ -152,7 +151,9 @@ if (isset($_POST['kurir'])) {
     $kurir = strtolower($_POST['kurir']);
 //    include 'ongkir/rajaongkir.php';
     $kota = getKota($conn, $_SESSION['user_id']);
-    $hasil = countPrice(22, 1, $kurir, 1);
+    $berat = getBerat($conn, $_SESSION['user_id']);
+
+    $hasil = countPrice(22, $kota, $kurir, $berat);
 
 
 }
@@ -253,18 +254,18 @@ include 'partition/nav.php';
         <!--                    selection-->
 
         <?php foreach ($hasil as $result): ?>
-            <?php foreach ($result['costs'] as $harga): ?>
+            <?php foreach ($result['costs'] as $get): ?>
 
-                <?php if($harga['service'] == "REG"){
+                <?php if($get['service'] == "REG"){
 
                     $nama = $result['name'];
-                    $paket = $harga['service'];
-                    $desc = $harga['description'];
-                    $harga = $harga['cost'][0]['value'];
+                    $paket = $get['service'];
+                    $desc = $get['description'];
+                    $harga = $get['cost'][0]['value'];
 
                     $_SESSION['ongkir'] = $harga;
 
-                    $waktu = $harga['cost'][0]['etd'];
+                    $waktu = $get['cost'][0]['etd'];
 
                 }
                 ?>

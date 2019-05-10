@@ -40,6 +40,7 @@ function getDataKota()
 
 function countPrice($origin, $destination, $courier = "jne", $weight)
 {
+    echo $origin." ".$destination." ".$courier." ".$weight;
     $request = "origin=$origin&destination=$destination&weight=$weight&courier=$courier";
 
     $data = curl("https://api.rajaongkir.com/starter/cost", "POST", $request);
