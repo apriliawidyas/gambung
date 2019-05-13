@@ -3,6 +3,13 @@ require "partition/header.php";
 include 'conn.php';
 
 
+
+
+if(!isset($_SESSION['role']) || ($_SESSION['role'] != 2)){
+    header("Location:index.php");
+}
+
+
 if (isset($_POST['daftartoko'])) {
     $nama_file = $_FILES['gambar']['name'];
     $ukuran_file = $_FILES['gambar']['size'];

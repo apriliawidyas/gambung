@@ -27,6 +27,7 @@ if (isset($_POST['btnSubmit'])) {
   	$_SESSION['email'] = $email;
     $_SESSION['user_id'] = $id;
     $_SESSION['status'] = "login";
+    $_SESSION['role'] = $role_id;
     if ($role_id == 1) {
       header("location:admin/index.php");
     }elseif ($role_id == 2) {
@@ -63,7 +64,7 @@ if (isset($_POST['btnDaftar'])) {
         <div class="form-group">
           <input name="password" type="password" class="form-control" id="password" placeholder="Password">
         </div>
-        <p>Lupa Password ? <a href="#">Klik disini</a></p>
+<!--        <p>Lupa Password ? <a href="#">Klik disini</a></p>-->
 
         
 

@@ -3,7 +3,7 @@ include 'sidebar.php';
 
 $email = $_SESSION['email'];
 $user_id = $_SESSION['user_id'];
-$sql = "SELECT cart.status_pengiriman,cart.id,pr.nama as nama_produk,pr.gambar,cart.kuantitas,cart.status,pr.harga,CONCAT(user.nama_depan,user.nama_belakang) as nama 
+$sql = "SELECT user.kota,user.alamat,cart.status_pengiriman,cart.id,pr.nama as nama_produk,pr.gambar,cart.kuantitas,cart.status,pr.harga,CONCAT(user.nama_depan,user.nama_belakang) as nama 
 FROM cart cart JOIN produk pr
 ON pr.id = cart.id_produk
 JOIN user user ON cart.user_id = user.id
@@ -54,7 +54,7 @@ if(isset($_POST['verifikasi'])){
 
         <div class="d-sm-flex align-items-center justify-content-between mb-4">
             <h1 class="h3 mb-0 text-gray-800" style="font-weight: bold;">Dashboard <?php echo $_SESSION['nama_depan']; ?></h1>
-            <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan Penjualan</a>
+            <button class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm" onclick="Myprint()"><i class="fas fa-download fa-sm text-white-50"></i> Cetak Laporan Penjualan</button>
         </div>
 
         <!-- Topbar Navbar -->
@@ -63,7 +63,7 @@ if(isset($_POST['verifikasi'])){
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Tabel Daftar Produk</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Tabel Verifikasi Penjualan</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
@@ -76,6 +76,7 @@ if(isset($_POST['verifikasi'])){
                                     <th>Kuantitas</th>
                                     <th>Gambar</th>
                                     <th>Harga</th>
+                                    <th>Alamat</th>
                                     <th>Aksi</th>
                                 </tr>
                             </thead>
@@ -97,6 +98,7 @@ if(isset($_POST['verifikasi'])){
                                         <td name=''>".$row["kuantitas"]."</td>
                                         <td><img src='../images/".$row['gambar']."' width='100' height='100'></td>
                                         <td name=''>".$row["harga"]*$row["kuantitas"]."</td>
+                                        <td name=''>".$row["kota"].", ".$row["alamat"]."</td>
                                         <td>";
                                         if ($row['status_pengiriman']==0) {
                                             echo "<form action='' method='post'>
@@ -117,6 +119,22 @@ if(isset($_POST['verifikasi'])){
 
                                 ?>
                             </tbody>
+                            <?php
+
+                            $email = $_SESSION['email'];
+                            $user_id = $_SESSION['user_id'];
+                            $sql = "SELECT SUM(cart.kuantitas*pr.harga) as totalPendapatan 
+                            FROM cart cart JOIN produk pr
+                            ON pr.id = cart.id_produk
+                            JOIN user user ON cart.user_id = user.id
+                            JOIN transfer tf ON tf.id_transfer = cart.id_transfer
+                            WHERE pr.penjual_id = '$user_id' AND tf.status_verifikasi = 1";
+
+                            $result = $conn->query($sql);
+                            $row = mysqli_fetch_assoc($result);
+
+                            ?>
+                            <h5 style="color: black;">Total Pendapatan : <?php echo $row['totalPendapatan']; ?></h5>
                         </table>
                     </div>
                 </div>
@@ -144,6 +162,12 @@ if(isset($_POST['verifikasi'])){
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
+
+<script>
+    function Myprint() {
+        window.print();
+    }
+</script>
 
     <?php
 

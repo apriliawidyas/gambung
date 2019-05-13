@@ -51,7 +51,7 @@ if (isset($_POST['btnDaftar'])) {
           // echo "New record created successfully";
       echo "<script type='text/javascript'>
       alert('Berhasil Tambah User, silahkan isi Toko');
-      window.location.href='daftar_toko.php';
+      window.location.href='login.php';
       </script>";
 
     } else {

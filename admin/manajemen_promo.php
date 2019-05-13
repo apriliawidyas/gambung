@@ -9,6 +9,27 @@ if($_SESSION['status'] !="login"){
 	header("location:../index.php");
 }
 
+if (isset($_POST['hapus_voucher'])) {
+    // echo "Mau Hapus";
+    $id_produk = $_POST['hapus_voucher'];
+    // sql to delete a record
+    $sql = "DELETE FROM voucher WHERE id='$id_produk'";
+    if ($conn->query($sql) === TRUE) {
+        echo"<script type='text/javascript'>
+    alert('Berhasil Dihapus');
+    window.location.href='manajemen_promo.php';
+    </script>";
+        exit;
+    } else {
+        // echo "<script> alert('Berhasil Hapus'); </script>";
+        echo "<script> alert('Error deleting record: ".$conn->error."'); </script>";
+        // echo "Error deleting record: " . $conn->error;
+    }
+    $conn->close();
+}
+
+
+
 if (isset($_POST['inputvoucher'])) {
   $voucher = strtoupper($_POST['voucher']);
   $diskon = $_POST['diskon']/100;
@@ -74,7 +95,57 @@ include 'sidebar.php';
       <button name="inputvoucher" type="submit" class="btn daftar btn-dark" style="background-color: #562b00;">Input</button>
     </div>
   </form>
-</div>
+
+
+  <div class="container" style="padding-top: -80px;">
+      <br>
+      <table class="table table-hover">
+          <thead>
+          <tr>
+              <th>No</th>
+              <th>Kode Voucher</th>
+              <th>Discount</th>
+              <th>Aksi</th>
+          </tr>
+          </thead>
+          <tbody>
+
+          <?php
+          $sql = "SELECT * FROM voucher";
+          $result = $conn->query($sql);
+
+          if ($result->num_rows > 0) {
+              // output data of each row
+              $a = 0;
+              while($row = $result->fetch_assoc()) {
+                  $a++;
+                  echo
+                      "
+          <form action='' method='post'>
+          <tr>
+          <td name='id'>" . $a . "</td>
+          <td name=''>" . $row['kode'] . "</td>
+          <td name=''>" . $row["diskon"]*100 . "% </td>        
+          <td>
+          <form action='edit_produk.php' method='post'>
+          <button type='submit' class='btn btn-danger' name='hapus_voucher' value='".$row["id"]."'>Hapus</button>
+          </form>
+          </td>
+          </tr>
+          </form>
+          ";
+
+              }
+          } else {
+
+              echo "<h1>Data Belum Ada</h1><br>";
+          }
+          $conn->close();
+          ?>
+          </tbody>
+      </table>
+  </div>
+
 
 <script src="vendor/jquery/jquery.min.js"></script>
 <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>

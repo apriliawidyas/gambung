@@ -91,7 +91,18 @@ include 'sidebar.php';
           <td name=''>" . $row['nama'] . "</td>
           <td name=''>" . $row["total"] . "</td>
           <td name=''>" . $row["date_upload"] . "</td>
-          <td name=''> <img src='../images/".$row['id_transfer'].".png' alt='' width='150px'><img src='../images/".$row['id_transfer'].".jpg' alt='' width='150px'><img src='../images/".$row['id_transfer'].".jpeg' alt='' width='150px'></td> 
+          <td name=''>";
+
+          if (file_exists('../images/'.$row['id_transfer'].'png')) {
+          echo "<a href='../images/".$row['id_transfer'].".png' target='_blank'><img src = '../images/".$row['id_transfer'].".png' alt = '' width = '150px' ></a>";
+          } else if (file_exists('../images/'.$row['id_transfer'].'jpg')) {
+              echo "<a href='../images/".$row['id_transfer'].".jpg' target='_blank'><img src='../images/" . $row['id_transfer'] . ".jpg' alt='' width='150px'></a>";
+          } else {
+          echo "<a href='../images/".$row['id_transfer'].".jpeg' target='_blank'><img src='../images/" . $row['id_transfer'] . ".jpeg' alt='' width='150px'></a>";
+          }
+          echo "
+          </td> 
+          
           <td>";
           if ($row['status_verifikasi']==0) {
             echo "<button type='submit' class='btn btn-warning ' name='verifikasi' value='" . $row["id_transfer"] . "'>Verifikasi</button>";

@@ -70,7 +70,8 @@
     <?php  while(($row = $result->fetch_assoc()) && ($limit < 3)){
 									$name = $row['nama'];
 									$image = $row['gambar'];
-                  $price = $row['harga'];
+                                    $price = $row['harga'];
+                                    $id = $row['id'];
                   $limit++;
 		 ?>
 
@@ -78,7 +79,7 @@
     <div class="gambar" >
 
       <img src="images/<?php echo $image ?>" alt="produk">
-        <a href="?hehe">
+        <a href="detailproduk.php?id=<?php echo $id; ?>">
       <div class="overflow">
           <h2><?php echo $name ?></h2>
       </div>

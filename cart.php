@@ -39,6 +39,11 @@ if(isset($_GET['decrement'])){
     $result = $conn->query($sql);
     $row = $result->fetch_assoc();
     $kuantitas = $row['kuantitas'];
+    if($kuantitas <= 1){
+        header("Location:cart.php?deleteId=$iniid");
+        return;
+    }
+
     $kuantitas = $kuantitas - 1;
 
     $sql = "UPDATE cart SET kuantitas = '$kuantitas' WHERE id = '$iniid'";

@@ -150,7 +150,7 @@ if (isset($_POST['btnSubmit'])) {
                     <input name="harga_produk" type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Harga Produk">
                   </div>
                   <div class="form-group">
-                    <input name="berat_produk" type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Berat Produk">
+                    <input name="berat_produk" type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Berat Produk ( Dalam Gram )">
                   </div>
                   <div class="form-group">
                     <select name="kategori" class="form-control" style="border-radius: 20px;">
