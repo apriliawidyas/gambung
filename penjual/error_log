@@ -1,0 +1,6 @@
+[14-May-2019 04:05:56 UTC] PHP Warning:  mysqli_query(): Couldn't fetch mysqli in /home/gambungs/public_html/penjual/edit_produk.php on line 223
+[14-May-2019 04:05:56 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on null in /home/gambungs/public_html/penjual/edit_produk.php on line 224
+[14-May-2019 04:11:08 UTC] PHP Warning:  mysqli_query(): Couldn't fetch mysqli in /home/gambungs/public_html/penjual/edit_produk.php on line 223
+[14-May-2019 04:11:08 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on null in /home/gambungs/public_html/penjual/edit_produk.php on line 224
+[14-May-2019 05:20:54 UTC] PHP Warning:  mysqli_query(): Couldn't fetch mysqli in /home/gambungs/public_html/penjual/edit_produk.php on line 223
+[14-May-2019 05:20:54 UTC] PHP Fatal error:  Call to a member function fetch_assoc() on null in /home/gambungs/public_html/penjual/edit_produk.php on line 224
