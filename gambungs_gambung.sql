@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 05 Bulan Mei 2019 pada 12.43
--- Versi server: 10.1.38-MariaDB
--- Versi PHP: 7.3.3
+-- Generation Time: May 23, 2019 at 11:32 PM
+-- Server version: 10.1.38-MariaDB
+-- PHP Version: 7.3.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -19,13 +19,13 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `gambung`
+-- Database: `gambungs_gambung`
 --
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `cart`
+-- Table structure for table `cart`
 --
 
 CREATE TABLE `cart` (
@@ -39,19 +39,21 @@ CREATE TABLE `cart` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `cart`
+-- Dumping data for table `cart`
 --
 
 INSERT INTO `cart` (`id`, `user_id`, `id_produk`, `kuantitas`, `status`, `status_pengiriman`, `id_transfer`) VALUES
 (1, 7, 17, 1, 1, 0, 1),
 (2, 7, 16, 4, 1, 0, 2),
 (3, 8, 40, 4, 1, 0, 3),
-(4, 8, 17, 3, 1, 1, 4);
+(4, 8, 17, 3, 1, 1, 4),
+(5, 11, 41, 1, 1, 1, 5),
+(6, 11, 42, 2, 1, 0, 6);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `foto_produk`
+-- Table structure for table `foto_produk`
 --
 
 CREATE TABLE `foto_produk` (
@@ -60,21 +62,21 @@ CREATE TABLE `foto_produk` (
   `gambar` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data untuk tabel `foto_produk`
+-- Table structure for table `kategori`
 --
 
-INSERT INTO `foto_produk` (`id_foto`, `id_produk`, `gambar`) VALUES
-(11, 40, 'Coba_AL.png.png'),
-(12, 40, 'Coba_Frame.png.png'),
-(13, 40, 'Coba_psTcwrZyvD.png'),
-(14, 40, 'Coba_b7tp4EmGqr.png'),
-(16, 41, 'Kopi Anjay_APCG0Eq2Ko.png');
+CREATE TABLE `kategori` (
+  `id` int(11) NOT NULL,
+  `nama_kategori` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `notif`
+-- Table structure for table `notif`
 --
 
 CREATE TABLE `notif` (
@@ -86,7 +88,7 @@ CREATE TABLE `notif` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `notif`
+-- Dumping data for table `notif`
 --
 
 INSERT INTO `notif` (`notif_id`, `user_id`, `notif_judul`, `notif_text`, `notif_status`) VALUES
@@ -95,12 +97,14 @@ INSERT INTO `notif` (`notif_id`, `user_id`, `notif_judul`, `notif_text`, `notif_
 (3, 8, 'Verifikasi Pembayaran', 'Bukti transfer anda sudah diverifikasi', 1),
 (4, 0, 'Verifikasi Pembayaran', 'Bukti transfer anda sudah diverifikasi', 0),
 (5, 8, 'Verifikasi Pembayaran', 'Bukti transfer anda sudah diverifikasi', 1),
-(6, 8, 'Verifikasi Pengiriman', 'Barang anda sudah dikirim', 1);
+(6, 8, 'Verifikasi Pengiriman', 'Barang anda sudah dikirim', 1),
+(7, 11, 'Verifikasi Pembayaran', 'Bukti transfer anda sudah diverifikasi', 1),
+(8, 11, 'Verifikasi Pengiriman', 'Barang anda sudah dikirim', 1);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `produk`
+-- Table structure for table `produk`
 --
 
 CREATE TABLE `produk` (
@@ -112,26 +116,24 @@ CREATE TABLE `produk` (
   `keterangan` varchar(255) NOT NULL,
   `gambar` varchar(255) NOT NULL,
   `berat` int(11) NOT NULL,
-  `kategori` varchar(255) NOT NULL
+  `kategori` varchar(255) NOT NULL,
+  `stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `produk`
+-- Dumping data for table `produk`
 --
 
-INSERT INTO `produk` (`id`, `penjual_id`, `id_toko`, `nama`, `harga`, `keterangan`, `gambar`, `berat`, `kategori`) VALUES
-(12, 3, 0, 'Kopiko', '1232', 'Kopiko Enak Sekali', 'Kopiko.png', 500, 'kopi'),
-(13, 3, 0, 'dsa', '1234', 'wef', 'dsa.png', 250, 'kopi'),
-(14, 3, 0, 'Kopi Enakdsds', '200000', 'Kopi Enak', 'Kopi Enakdsds.jpeg', 300, 'kopi'),
-(15, 3, 0, 'dsa', '23', 'das', 'dsa.jpeg', 600, 'kerajinan'),
-(16, 4, 0, 'Kripik Teh', '25000', 'Kripik Teh Ciwidey, dari bahan alami', 'Kripik Teh.png', 750, 'teh'),
-(17, 9, 0, 'April', '10000000', 'Cewe sukanya marah mulu', 'April.jpeg', 55, 'kerajinan'),
-(40, 9, 2, 'Coba', '1000000', 'multifoto', 'Coba.png', 100, 'kopi');
+INSERT INTO `produk` (`id`, `penjual_id`, `id_toko`, `nama`, `harga`, `keterangan`, `gambar`, `berat`, `kategori`, `stock`) VALUES
+(41, 9, 2, 'Kopi Mantap', '50000', 'Mantap Betul', 'Kopi Mantap.jpeg', 100, 'kopi', 0),
+(42, 9, 2, 'Teh Mantap', '50000', 'Mantap Betul', 'Teh Mantap.jpeg', 100, 'teh', 0),
+(43, 9, 2, 'Teh Oke', '50000', 'Oke Betul', 'Teh Oke.jpeg', 100, 'kerajinan', 0),
+(44, 16, 3, '', '', '', '.png', 0, 'kopi', 0);
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `toko`
+-- Table structure for table `toko`
 --
 
 CREATE TABLE `toko` (
@@ -143,16 +145,17 @@ CREATE TABLE `toko` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `toko`
+-- Dumping data for table `toko`
 --
 
 INSERT INTO `toko` (`id_toko`, `id_user`, `nama_toko`, `alamat`, `gambar`) VALUES
-(2, 9, 'Toko Erza', 'Ini Alamat', 'dwa.jpeg');
+(2, 9, 'Toko X', 'Ciwidey', 'Toko X.png'),
+(3, 16, 'gamboeng', 'gambung', 'gamboeng.png');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `transfer`
+-- Table structure for table `transfer`
 --
 
 CREATE TABLE `transfer` (
@@ -166,19 +169,21 @@ CREATE TABLE `transfer` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `transfer`
+-- Dumping data for table `transfer`
 --
 
 INSERT INTO `transfer` (`id_transfer`, `id_user`, `total`, `status_upload`, `status_verifikasi`, `date_upload`, `time_checkout`) VALUES
 (1, 7, 10052000, 1, 1, '2019-05-04', '05:06:pm'),
 (2, 7, 162000, 0, 0, '0000-00-00', '05:06:pm'),
 (3, 8, 4062000, 1, 1, '2019-05-05', '11:05:am'),
-(4, 8, 30052000, 1, 1, '2019-05-05', '11:20:am');
+(4, 8, 30052000, 1, 1, '2019-05-05', '11:20:am'),
+(5, 11, 70000, 1, 1, '2019-05-13', '07:24:pm'),
+(6, 11, 120000, 0, 0, '0000-00-00', '03:50:am');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user`
+-- Table structure for table `user`
 --
 
 CREATE TABLE `user` (
@@ -195,23 +200,22 @@ CREATE TABLE `user` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `user`
+-- Dumping data for table `user`
 --
 
 INSERT INTO `user` (`id`, `role_id`, `nama_depan`, `nama_belakang`, `tanggal_lahir`, `kota`, `alamat`, `no_telp`, `email`, `password`) VALUES
-(1, 1, '', '', '0000-00-00', '', '', '2147483647', 'admin@gmail.com', 'admin'),
 (4, 2, 'Rizqi', 'Prima', '2001-01-11', 'Klaten', 'Bandun Keren', '2147483647', 'rizqisupernova@gmail.com', 'rizqisupernova'),
-(5, 3, 'Rizqi', 'Prima', '1998-01-11', '', 'Rizqi Prima Hariadhy', '2147483647', 'rizqiphdd@gmail.com', '123456'),
-(6, 3, 'Rizqi', 'Prima', '1998-01-11', '', 'Bandung', '2147483647', 'rizqiphdddd@gmail.com', 'rizqiphdddd@gmail.com'),
 (7, 3, 'Aprilia', 'Widyas', '1998-04-19', 'Klaten', 'Bojongsoang', '082216650304', 'apriliawidyas@gmail.com', 'adgjmptwe'),
-(8, 3, 'Erza', 'Ganteng', '2019-04-10', 'Klaten', 'Asrama gd 9', '085', 'erzaganteng@gmail.com', 'erza'),
-(9, 2, 'Erza', 'Gantenk Banget', '2019-05-07', '', 'hatimu yang terdalam', '123', 'erza@gmail.com', 'erza'),
-(10, 1, 'Erza Ganteng', 'Admin Ganteng', '2019-05-18', 'Bandung', 'Bojongswan', '12345612345', 'erzaadmin@gmail.com', 'erza');
+(10, 1, 'Karina', 'Farizki', '2019-05-18', 'Bandung', 'Bojongswan', '12345612345', 'karinaadmin@gmail.com', 'karinafs'),
+(11, 3, 'Karina ', 'FS', '1997-12-16', 'Klaten', 'Klaten', '082216649651', 'karinafarizki20@gmail.com', 'karinafs'),
+(14, 1, 'Amjad Fawwaz', 'Humam', '1997-01-08', 'Bandung', 'Ciwidey', '081215548761', 'amjadfawwaz123@gmail.com', 'asdawe123'),
+(15, 1, 'Rival', 'Fauzi', '2019-05-03', 'Bandung', 'Ciwidey', '081215548761', 'rivalf666@gmail.com', 'jangawareng'),
+(16, 1, 'Nugraha Rasid', 'Firdaus', '2019-05-17', 'Bandung', 'Ciwidey', '081215548761', 'nugraharf@gmail.com', 'nugraha19');
 
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `user_role`
+-- Table structure for table `user_role`
 --
 
 CREATE TABLE `user_role` (
@@ -220,7 +224,7 @@ CREATE TABLE `user_role` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `user_role`
+-- Dumping data for table `user_role`
 --
 
 INSERT INTO `user_role` (`id`, `role`) VALUES
@@ -231,7 +235,7 @@ INSERT INTO `user_role` (`id`, `role`) VALUES
 -- --------------------------------------------------------
 
 --
--- Struktur dari tabel `voucher`
+-- Table structure for table `voucher`
 --
 
 CREATE TABLE `voucher` (
@@ -241,7 +245,7 @@ CREATE TABLE `voucher` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data untuk tabel `voucher`
+-- Dumping data for table `voucher`
 --
 
 INSERT INTO `voucher` (`id`, `kode`, `diskon`) VALUES
@@ -254,110 +258,122 @@ INSERT INTO `voucher` (`id`, `kode`, `diskon`) VALUES
 --
 
 --
--- Indeks untuk tabel `cart`
+-- Indexes for table `cart`
 --
 ALTER TABLE `cart`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `foto_produk`
+-- Indexes for table `foto_produk`
 --
 ALTER TABLE `foto_produk`
   ADD PRIMARY KEY (`id_foto`);
 
 --
--- Indeks untuk tabel `notif`
+-- Indexes for table `kategori`
+--
+ALTER TABLE `kategori`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `notif`
 --
 ALTER TABLE `notif`
   ADD PRIMARY KEY (`notif_id`);
 
 --
--- Indeks untuk tabel `produk`
+-- Indexes for table `produk`
 --
 ALTER TABLE `produk`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `toko`
+-- Indexes for table `toko`
 --
 ALTER TABLE `toko`
   ADD PRIMARY KEY (`id_toko`),
   ADD UNIQUE KEY `id_user` (`id_user`);
 
 --
--- Indeks untuk tabel `transfer`
+-- Indexes for table `transfer`
 --
 ALTER TABLE `transfer`
   ADD PRIMARY KEY (`id_transfer`);
 
 --
--- Indeks untuk tabel `user`
+-- Indexes for table `user`
 --
 ALTER TABLE `user`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `username` (`email`);
 
 --
--- Indeks untuk tabel `user_role`
+-- Indexes for table `user_role`
 --
 ALTER TABLE `user_role`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indeks untuk tabel `voucher`
+-- Indexes for table `voucher`
 --
 ALTER TABLE `voucher`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `kode` (`kode`);
 
 --
--- AUTO_INCREMENT untuk tabel yang dibuang
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT untuk tabel `cart`
+-- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `foto_produk`
+-- AUTO_INCREMENT for table `foto_produk`
 --
 ALTER TABLE `foto_produk`
-  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id_foto` int(11) NOT NULL AUTO_INCREMENT;
 
 --
--- AUTO_INCREMENT untuk tabel `notif`
+-- AUTO_INCREMENT for table `kategori`
+--
+ALTER TABLE `kategori`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `notif`
 --
 ALTER TABLE `notif`
-  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `notif_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
--- AUTO_INCREMENT untuk tabel `produk`
+-- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
--- AUTO_INCREMENT untuk tabel `toko`
+-- AUTO_INCREMENT for table `toko`
 --
 ALTER TABLE `toko`
-  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT untuk tabel `transfer`
+-- AUTO_INCREMENT for table `transfer`
 --
 ALTER TABLE `transfer`
-  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id_transfer` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
--- AUTO_INCREMENT untuk tabel `user`
+-- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
--- AUTO_INCREMENT untuk tabel `voucher`
+-- AUTO_INCREMENT for table `voucher`
 --
 ALTER TABLE `voucher`
   MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
