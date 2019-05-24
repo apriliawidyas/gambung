@@ -8,8 +8,8 @@ $sql = "SELECT * FROM produk WHERE id='$id'";
 $result = $conn->query($sql);
 if (mysqli_num_rows($result) == 0) {
     echo "<script>
-         window.location.href = '404.php';
-         </script>";
+    window.location.href = '404.php';
+    </script>";
     // header("Location:404.php");
 }
 
@@ -19,6 +19,7 @@ while($row = $result->fetch_assoc()) {
     $image = $row['gambar'];
     $price = $row['harga'];
     $keterangan = $row['keterangan'];
+    $stock = $row['stock'];
 }
 
 
@@ -26,21 +27,30 @@ if(isset($_POST['beli'])){
     if($_SESSION['status'] == "login"){
         $id_user = $_SESSION['user_id'];
         $kuantitas = $_POST['kuantitas'];
-        $sql = "INSERT INTO cart VALUES(NULL, '$id_user','$id', $kuantitas, 0,0,0 )";
-        if($conn->query($sql) === TRUE){
+        $stock = $_POST['beli'];
+        if ($kuantitas > $stock) {
             echo "<script type='text/javascript'>
-            alert('Berhasil Dimasukan ke Cart');
-            window.location.href='cart.php';
+            alert('Stock tidak mencukupi');
+            location.reload(forceGet);
             </script>";
         }else{
-            echo "<script type='text/javascript'>
-            alert('Gagal Memasukan ke Cart');
-            </script>";
+            $sql = "INSERT INTO cart VALUES(NULL, '$id_user','$id', $kuantitas, 0,0,0 )";
+            if($conn->query($sql) === TRUE){
+               
+                echo "<script type='text/javascript'>
+                alert('Berhasil Dimasukan ke Cart');
+                window.location.href='cart.php';
+                </script>";
+            }else{
+                echo "<script type='text/javascript'>
+                alert('Gagal Memasukan ke Cart');
+                </script>";
+            }
         }
     }else{
         echo "<script>
-         window.location.href = 'login.php';
-         </script>";
+        window.location.href = 'login.php';
+        </script>";
         // header("location:login.php");
     }
 
@@ -100,14 +110,14 @@ if(isset($_POST['beli'])){
                 <div class="col-lg-6 product-details">
                     <h2 class=""><strong><?php echo $name ?></strong></h2>
                     <h3 class="p-price"><?php echo $price ?></h3>
-                    <h4 class="p-stock">Available: <span>In Stock</span></h4>
+                    <h4 class="p-stock">Available: <span><?php echo $stock; ?> Stock</span></h4>
 
                     <form action="" method="post">
                         <div class="quantity">
                             <p>Quantity</p>
                             <div class="pro-qty"><input type="text" value="1" name="kuantitas"></div>
                         </div>
-                        <button class="site-btn" type="submit" name="beli">BELI</button>
+                        <button class="site-btn" type="submit" name="beli" value="<?php echo $stock; ?>">BELI</button>
                     </form>
 
                     <!--                    accoordion-->

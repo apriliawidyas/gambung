@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2019 at 11:32 PM
+-- Generation Time: May 24, 2019 at 12:13 PM
 -- Server version: 10.1.38-MariaDB
--- PHP Version: 7.3.4
+-- PHP Version: 7.2.16
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -48,7 +48,8 @@ INSERT INTO `cart` (`id`, `user_id`, `id_produk`, `kuantitas`, `status`, `status
 (3, 8, 40, 4, 1, 0, 3),
 (4, 8, 17, 3, 1, 1, 4),
 (5, 11, 41, 1, 1, 1, 5),
-(6, 11, 42, 2, 1, 0, 6);
+(6, 11, 42, 2, 1, 0, 6),
+(7, 19, 45, 1, 0, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -72,6 +73,16 @@ CREATE TABLE `kategori` (
   `id` int(11) NOT NULL,
   `nama_kategori` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `kategori`
+--
+
+INSERT INTO `kategori` (`id`, `nama_kategori`) VALUES
+(1, 'kopi'),
+(2, 'teh'),
+(3, 'kerajinan'),
+(8, 'sayang');
 
 -- --------------------------------------------------------
 
@@ -116,7 +127,7 @@ CREATE TABLE `produk` (
   `keterangan` varchar(255) NOT NULL,
   `gambar` varchar(255) NOT NULL,
   `berat` int(11) NOT NULL,
-  `kategori` varchar(255) NOT NULL,
+  `kategori` int(11) NOT NULL,
   `stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -125,10 +136,11 @@ CREATE TABLE `produk` (
 --
 
 INSERT INTO `produk` (`id`, `penjual_id`, `id_toko`, `nama`, `harga`, `keterangan`, `gambar`, `berat`, `kategori`, `stock`) VALUES
-(41, 9, 2, 'Kopi Mantap', '50000', 'Mantap Betul', 'Kopi Mantap.jpeg', 100, 'kopi', 0),
-(42, 9, 2, 'Teh Mantap', '50000', 'Mantap Betul', 'Teh Mantap.jpeg', 100, 'teh', 0),
-(43, 9, 2, 'Teh Oke', '50000', 'Oke Betul', 'Teh Oke.jpeg', 100, 'kerajinan', 0),
-(44, 16, 3, '', '', '', '.png', 0, 'kopi', 0);
+(41, 9, 2, 'Kopi Mantap', '50000', 'Mantap Betul', 'Kopi Mantap.jpeg', 100, 1, 100),
+(42, 9, 2, 'Teh Mantap', '50000', 'Mantap Betul', 'Teh Mantap.jpeg', 100, 2, 100),
+(43, 9, 2, 'Teh Oke', '50000', 'Oke Betul', 'Teh Oke.jpeg', 100, 3, 100),
+(44, 16, 3, '', '', '', '.png', 0, 1, 100),
+(46, 18, 4, 'april bocil', '600000', 'bocil mulu ngomel ngomel mulu', 'april bocil.jpeg', 50000, 8, 1000);
 
 -- --------------------------------------------------------
 
@@ -150,7 +162,8 @@ CREATE TABLE `toko` (
 
 INSERT INTO `toko` (`id_toko`, `id_user`, `nama_toko`, `alamat`, `gambar`) VALUES
 (2, 9, 'Toko X', 'Ciwidey', 'Toko X.png'),
-(3, 16, 'gamboeng', 'gambung', 'gamboeng.png');
+(3, 16, 'gamboeng', 'gambung', 'gamboeng.png'),
+(4, 18, 'toko', 'toko', 'toko.jpeg');
 
 -- --------------------------------------------------------
 
@@ -210,7 +223,10 @@ INSERT INTO `user` (`id`, `role_id`, `nama_depan`, `nama_belakang`, `tanggal_lah
 (11, 3, 'Karina ', 'FS', '1997-12-16', 'Klaten', 'Klaten', '082216649651', 'karinafarizki20@gmail.com', 'karinafs'),
 (14, 1, 'Amjad Fawwaz', 'Humam', '1997-01-08', 'Bandung', 'Ciwidey', '081215548761', 'amjadfawwaz123@gmail.com', 'asdawe123'),
 (15, 1, 'Rival', 'Fauzi', '2019-05-03', 'Bandung', 'Ciwidey', '081215548761', 'rivalf666@gmail.com', 'jangawareng'),
-(16, 1, 'Nugraha Rasid', 'Firdaus', '2019-05-17', 'Bandung', 'Ciwidey', '081215548761', 'nugraharf@gmail.com', 'nugraha19');
+(16, 1, 'Nugraha Rasid', 'Firdaus', '2019-05-17', 'Bandung', 'Ciwidey', '081215548761', 'nugraharf@gmail.com', 'nugraha19'),
+(17, 1, 'erza', 'putra', '2019-05-01', 'Sidoarjo', 'Disini', '034271234', 'erzaadmin@gmail.com', 'erza'),
+(18, 2, 'erza', 'putra', '2001-01-11', 'Klaten', 'Bandun Keren', '2147483647', 'erza@gmail.com', 'erza'),
+(19, 3, 'erza', 'erza', '1997-12-16', 'Klaten', 'Klaten', '082216649651', 'erzaganteng@gmail.com', 'erza');
 
 -- --------------------------------------------------------
 
@@ -250,8 +266,7 @@ CREATE TABLE `voucher` (
 
 INSERT INTO `voucher` (`id`, `kode`, `diskon`) VALUES
 (1, 'ERZGANTENG', '0.50'),
-(2, 'YDHS123HJ4', '0.20'),
-(3, 'APR19', '0.30');
+(2, 'YDHS123HJ4', '0.20');
 
 --
 -- Indexes for dumped tables
@@ -328,7 +343,7 @@ ALTER TABLE `voucher`
 -- AUTO_INCREMENT for table `cart`
 --
 ALTER TABLE `cart`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT for table `foto_produk`
@@ -340,7 +355,7 @@ ALTER TABLE `foto_produk`
 -- AUTO_INCREMENT for table `kategori`
 --
 ALTER TABLE `kategori`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `notif`
@@ -352,13 +367,13 @@ ALTER TABLE `notif`
 -- AUTO_INCREMENT for table `produk`
 --
 ALTER TABLE `produk`
-  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(255) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
 -- AUTO_INCREMENT for table `toko`
 --
 ALTER TABLE `toko`
-  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_toko` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `transfer`
@@ -370,7 +385,7 @@ ALTER TABLE `transfer`
 -- AUTO_INCREMENT for table `user`
 --
 ALTER TABLE `user`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `voucher`

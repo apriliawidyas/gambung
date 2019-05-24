@@ -3,9 +3,9 @@ include '../conn.php';
 
 // cek apakah user telah login, jika belum login maka di alihkan ke halaman login
 if($_SESSION['status'] !="login"){
-    echo "<script>
-         window.location.href = '../index.php';
-         </script>";
+  echo "<script>
+  window.location.href = '../index.php';
+  </script>";
 // 	header("location:../index.php");
 }
 
@@ -92,12 +92,18 @@ if($_SESSION['status'] !="login"){
      </a>
    </li>
 
+   <li class="nav-item">
+    <a class="nav-link" href="manajemen_kategori.php">
+     <i class="fas fa-fw fa-chart-area"></i>
+     <span>Manajemen Kategori</span>
+   </a>
+ </li>
 
- </ul>
- <!-- End of Sidebar -->
+</ul>
+<!-- End of Sidebar -->
 
- <!-- Content Wrapper -->
- <div id="content-wrapper" class="d-flex flex-column">
+<!-- Content Wrapper -->
+<div id="content-wrapper" class="d-flex flex-column">
 
   <!-- Main Content -->
   <div id="content">

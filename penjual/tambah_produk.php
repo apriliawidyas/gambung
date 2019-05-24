@@ -42,6 +42,7 @@ if (isset($_POST['btnSubmit'])) {
   $berat_produk = $_POST['berat_produk'];
   $kategori = strtolower($_POST['kategori']);
   $harga = $_POST['harga_produk'];
+  $stock = $_POST['stock_produk'];
   $nama_file = $nama_produk.".".substr($tipe_file,6);
 
     // Set path folder tempat menyimpan gambarnya
@@ -54,7 +55,7 @@ if (isset($_POST['btnSubmit'])) {
     		if(move_uploaded_file($tmp_file, $path)){ // Cek apakah gambar berhasil diupload atau tidak
     			// Jika gambar berhasil diupload, Lakukan :
     			// Proses simpan ke Database
-    			$query = "INSERT INTO produk VALUES('','$user_id','$id_toko','$nama_produk','$harga','$keterangan','$nama_file','$berat_produk','$kategori')";
+    			$query = "INSERT INTO produk VALUES('','$user_id','$id_toko','$nama_produk','$harga','$keterangan','$nama_file','$berat_produk','$kategori','$stock')";
     			$sql = mysqli_query($conn, $query); // Eksekusi/ Jalankan query dari variabel $query
 
     			if($sql){ // Cek jika proses simpan ke database sukses atau tidak
@@ -73,8 +74,8 @@ if (isset($_POST['btnSubmit'])) {
             echo "<script type='text/javascript'>
             alert('Berhasil Tambah Produk');
             </script>";
-    				
-    			}else{
+
+          }else{
     				// Jika Gagal, Lakukan :
             echo"<script type='text/javascript'>
             alert('Terjadi Kesalahan');
@@ -154,48 +155,31 @@ if (isset($_POST['btnSubmit'])) {
                   </div>
                   <div class="form-group">
                     <select name="kategori" class="form-control" style="border-radius: 20px;">
-                      <option>Kopi</option>
-                      <option>Teh</option>
-                      <option>Kerajinan</option>
-                    </select>
-                  </div>
-                  <div class="input-group">
-                    <div class="">
-                     <label class="" for="inputGroupFile01">Pilih Foto Produk</label><br>
-                     <input type="file" class="" name="gambar" multiple="multiple" accept="image/*">
-                   </div>
+
+                      <?php 
+
+                      $sql = "SELECT * FROM kategori";
+                      $query = mysqli_query($conn,$sql);
+
+                      while ($row = mysqli_fetch_assoc($query)) {
+
+                       ?>
+
+                       <option value="<?php echo $row['id']; ?>"><?php echo ucfirst($row['nama_kategori']); ?></option>
+
+                     <?php } ?>
+
+                   </select>
                  </div>
-<!--                  <hr>
-                 <label><b>Foto selanjutnya tidak wajib</b></label>
-                 <br>
-                 <br>
+                 <div class="form-group">
+                    <input name="stock_produk" type="text" class="form-control form-control-user" id="exampleInputEmail" placeholder="Stock Produk">
+                  </div>
                  <div class="input-group">
                   <div class="">
-                   <label class="" for="inputGroupFile01">Pilih Foto Produk 2</label><br>
-                   <input type="file" class="" name="gambar2">
+                   <label class="" for="inputGroupFile01">Pilih Foto Produk</label><br>
+                   <input type="file" class="" name="gambar" multiple="multiple" accept="image/*">
                  </div>
                </div>
-               <br>
-               <div class="input-group">
-                <div class="">
-                 <label class="" for="inputGroupFile01">Pilih Foto Produk 3</label><br>
-                 <input type="file" class="" name="gambar3">
-               </div>
-             </div>
-             <br>
-             <div class="input-group">
-              <div class="">
-                <label class="" for="inputGroupFile01">Pilih Foto Produk 4</label><br>
-                <input type="file" class="" name="gambar4">
-              </div>
-            </div>
-            <br>
-            <div class="input-group">
-              <div class="">
-               <label class="" for="inputGroupFile01">Pilih Foto Produk 5</label><br>
-               <input type="file" class="" name="gambar5">
-             </div>
-           </div> -->
            <br>
            <button type="submit" name="btnSubmit" href="" class="btn btn-success btn-user btn-block">
             <b>Tambah Produk</b>

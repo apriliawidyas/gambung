@@ -185,7 +185,7 @@ include 'partition/nav.php';
                  <table class="table">
                   <thead>
                    <tr>
-                    <th scope="col">Pilih</th>
+                    <th scope="col">No</th>
                     <th scope="col">Produk</th>
                     <th scope="col">Harga</th>
                     <th scope="col">Kuantitas</th>
@@ -341,9 +341,22 @@ if(isset($_POST['payment'])){
     $id_transfer = $row['id_transfer'];
 
     if($exec){
+
+        $sql = "SELECT a.stock,b.id,b.kuantitas,b.id_produk FROM produk a JOIN cart b ON a.id = b.id_produk WHERE b.user_id = '$id' AND status = 0 GROUP BY b.id ";
+        $result = $conn->query($sql);
+        while ($row = mysqli_fetch_assoc($result)) {
+            $sisa = $row['stock'] - $row['kuantitas'];
+            $id_produk = $row['id_produk'];
+            $sql = "UPDATE produk SET stock = $sisa WHERE id = $id_produk";
+            $conn->query($sql);
+
+        }
+
         $sql = "UPDATE cart SET status = 1, id_transfer = '$id_transfer'WHERE user_id = '$user_id' && id_transfer = 0";
         $exec = $conn->query($sql);
         if($exec) {
+
+
             echo"<script type='text/javascript'>
             alert('Berhasil Checkout');
             window.location.href='transfer.php';
